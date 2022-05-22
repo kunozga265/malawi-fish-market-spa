@@ -61,6 +61,7 @@
                                 <v-btn
                                     color="primary"
                                     @click="el = 2"
+                                    :disabled="speciesSelected===''"
                                 >
                                     Next
                                 </v-btn>
@@ -71,8 +72,29 @@
                                 <v-card
                                     class="mb-12"
                                     color="grey lighten-1"
-                                    height="200px"
-                                ></v-card>
+
+                                >
+                                    <GmapMap
+                                        :center="center"
+                                        :zoom="18"
+                                        map-style-id="roadmap"
+                                        :options="mapOptions"
+                                        style="width: 100vmin; height: 50vmin"
+                                        ref="mapRef"
+                                        @click="handleMapClick"
+                                    >
+                                        <GmapMarker
+                                            :position="marker.position"
+                                            :clickable="true"
+                                            :draggable="true"
+                                            @drag="handleMarkerDrag"
+                                            @click="panToMarker"
+                                        />
+                                    </GmapMap>
+<!--                                    <button @click="geolocate">Detect Location</button>
+
+                                    <p>Selected Position: {{ marker.position }}</p>-->
+                                </v-card>
 
                                 <v-btn
                                     color="primary"
@@ -95,7 +117,9 @@
                                     class="mb-12"
                                     color="grey lighten-1"
                                     height="200px"
-                                ></v-card>
+                                >
+                                    <input type="file" @input="photoUpload($event.target.files[0])" />
+                                </v-card>
 
                                 <v-btn
                                     color="primary"
@@ -267,8 +291,9 @@
 
 <script>
 // import {db} from '@/Plugins/db'
-import {database} from "@/app";
+import {database, storage} from "@/app";
 import {onValue, ref} from "firebase/database";
+import { ref as storageRef, uploadString } from "firebase/storage";
 
 export default {
     name: "Home",
@@ -319,11 +344,75 @@ export default {
 
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             menu: false,
+            marker: { position: { lat: 10, lng: 10 } },
+            center: { lat: 10, lng: 10 },
+
+            mapOptions: {
+                disableDefaultUI: true,
+            },
         }
     },
 
     created() {
 
+    },
+    mounted() {
+        this.geolocate();
+    },
+
+    computed:{
+        user(){
+            return this.$store.getters.user
+        },
+    },
+    methods: {
+        photoUpload(file){
+            const reader=new FileReader();
+            if (file){
+                reader.readAsDataURL(file);
+                reader.onload=(e)=>{
+                    let result=(e.target.result).split(",")
+                   console.log(result)
+
+                    const timestamp=new Date().getTime();
+                    const fileRef = storageRef(storage,"Product_Images/"+this.user.data.uid+"/"+timestamp)
+
+                    console.log(fileRef)
+
+                    uploadString(fileRef, e.target.result, 'data_url').then((snapshot) => {
+                        console.log(snapshot);
+                    });
+                };
+            }
+        },
+        //detects location from browser
+        geolocate() {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.marker.position = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                this.panToMarker();
+            });
+        },
+
+        //sets the position of marker when dragged
+        handleMarkerDrag(e) {
+            this.marker.position = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+        },
+
+        //Moves the map view port to marker
+        panToMarker() {
+            this.$refs.mapRef.panTo(this.marker.position);
+            // this.$refs.mapRef.setZoom(18);
+        },
+
+        //Moves the marker to click position on the map
+        handleMapClick(e) {
+            this.marker.position = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+            console.log(e);
+        },
     },
 }
 </script>

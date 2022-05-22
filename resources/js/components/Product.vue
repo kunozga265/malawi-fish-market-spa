@@ -1,6 +1,7 @@
 <template>
     <v-col
         sm="6"
+        md="4"
     >
         <v-card
             class="pa-2 "
@@ -153,6 +154,13 @@
                 <v-divider></v-divider>
 
                 <v-card-actions>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="viewChat"
+                    >
+                        Chat
+                    </v-btn>
                     <v-spacer></v-spacer>
                     <v-btn
                         color="primary"
@@ -184,6 +192,13 @@ export default {
         this.items.push({
             src: this.product.image1,
         },)
+    },
+
+    methods:{
+        viewChat(){
+            this.dialog=false
+            this.$emit('chat',this.product.uid)
+        }
     }
 
 }

@@ -26,8 +26,10 @@
         "firebase": "^9.8.1",
         "resolve-url-loader": "^5.0.0",
         "vue-router": "^3.4.3",
+        "vue2-google-maps": "^0.10.7",
         "vuefire": "^2.2.5",
         "vuetify": "^2.6.5",
-        "vuex": "^3.6.2"
+        "vuex": "^3.6.2",
+        "vuex-persist": "^3.1.3"
     }
 }

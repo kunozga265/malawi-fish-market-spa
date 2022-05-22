@@ -4,16 +4,16 @@
             <v-toolbar
                 dark
                 color="blue darken-3"
+                flat
             >
-<!--                <v-app-bar-nav-icon></v-app-bar-nav-icon>-->
+                <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
                 <v-toolbar-title>Malawi Fish Market</v-toolbar-title>
 
             </v-toolbar>
 
-            <v-container>
-                <router-view></router-view>
-            </v-container>
+            <router-view></router-view>
+
 
         </v-main>
         <v-bottom-navigation
@@ -28,7 +28,7 @@
             <v-btn :to="{name:'dashboard'}">
                 <span>Market</span>
 
-                <v-icon>mdi-store-settings</v-icon>
+                <v-icon>mdi-store</v-icon>
             </v-btn>
 
             <v-btn :to="{name:'dashboard'}">
