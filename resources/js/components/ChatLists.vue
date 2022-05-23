@@ -1,36 +1,5 @@
 <style lang="scss">
-.chat{
-    position: fixed;
-    right: 20px;
-    bottom: 120px;
-    width: 400px;
 
-    .chat-header {
-        position: absolute;
-        top: 0;
-        width: 100%;
-    }
-
-    .chat-text{
-        padding: 82px 20px 134px 20px;
-
-        .chat-list{
-            padding: 10px 0;
-        }
-    }
-
-
-    .chat-field {
-        width: 100%;
-    }
-
-    .chat-footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-    }
-
-}
 
 </style>
 <template>
