@@ -58,9 +58,11 @@ a{
                             </div>
                         </router-link >
 
+                        <router-link :to="{name:'login-customer'}">
                         <div class="f-button blue darken-3">
-                            Admin
+                            Customer
                         </div>
+                        </router-link>
 
                     </div>
                 </div>

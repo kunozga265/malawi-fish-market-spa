@@ -1,14 +1,16 @@
 <template>
     <v-col
         sm="6"
-        md="4"
+        md="6"
+        lg="4"
     >
         <v-card
             class="pa-2 "
+            height="100%"
             @click="dialog=true"
         >
             <v-img
-                max-height="250"
+                height="250"
                 :src="product.image1"
             ></v-img>
 
@@ -140,7 +142,7 @@
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
-                                    <v-icon>mdi-menu-down</v-icon>
+                                    <v-icon>mdi-phone-classic</v-icon>
                                 </v-list-item-action>
                                 <v-list-item-content>
                                     <v-list-item-title>{{product.number1}} {{product.number2!=="0"?product.number2:''}} </v-list-item-title>

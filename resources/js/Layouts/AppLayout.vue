@@ -9,6 +9,16 @@
                 <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
                 <v-toolbar-title>Malawi Fish Market</v-toolbar-title>
+<!--                <v-spacer></v-spacer>
+                <v-btn text>
+                    Market
+                </v-btn>
+                <v-btn text>
+                    Catalog
+                </v-btn>
+                <v-btn text>
+                    Profile
+                </v-btn>-->
 
             </v-toolbar>
 
@@ -31,11 +41,11 @@
                 <v-icon>mdi-store</v-icon>
             </v-btn>
 
-            <v-btn :to="{name:'dashboard'}">
+<!--            <v-btn :to="{name:'dashboard'}">
                 <span>Chat</span>
 
                 <v-icon>mdi-chat</v-icon>
-            </v-btn>
+            </v-btn>-->
 
             <v-btn :to="{name:'catalog',params:{uid:user.data.uid}}">
                 <span>Catalog</span>

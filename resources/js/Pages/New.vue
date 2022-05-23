@@ -393,7 +393,7 @@
                                             {{number1}} {{number2 !=="0" || number2 !== null ?number2:''}}
                                         </v-col>
                                         <v-col sm="6">
-                                            <div class="blue--text darken-3 title">Share Wit</div>
+                                            <div class="blue--text darken-3 title">Share With</div>
                                             <div>{{shareWith}}</div>
                                         </v-col>
                                         <v-col sm="6">
