@@ -30,14 +30,26 @@
 
                             <v-divider></v-divider>
 
-                            <v-stepper-step step="3">
+                            <v-stepper-step
+                                step="3"
+                                :complete="el > 3"
+                            >
                                 Add Media
                             </v-stepper-step>
 
                             <v-divider></v-divider>
 
-                            <v-stepper-step step="4">
+                            <v-stepper-step
+                                step="4"
+                                :complete="el > 4"
+                            >
                                 Add Details
+                            </v-stepper-step>
+
+                            <v-divider></v-divider>
+
+                            <v-stepper-step step="5">
+                                Summary
                             </v-stepper-step>
                         </v-stepper-header>
 
@@ -53,6 +65,7 @@
                                             :items="species"
                                             outlined
                                             color="blue darken-3"
+                                            placeholder="Fish Species"
                                         ></v-select>
                                     </div>
 
@@ -71,8 +84,7 @@
                             <v-stepper-content step="2">
                                 <v-card
                                     class="mb-12"
-                                    color="grey lighten-1"
-
+                                    flat
                                 >
                                     <GmapMap
                                         :center="center"
@@ -91,9 +103,11 @@
                                             @click="panToMarker"
                                         />
                                     </GmapMap>
-<!--                                    <button @click="geolocate">Detect Location</button>
+                                    <div class="mt-5">
+                                        <v-btn @click="geolocate">Reset Location</v-btn>
+                                        <p>Selected Position: {{ marker.position }}</p>
+                                    </div>
 
-                                    <p>Selected Position: {{ marker.position }}</p>-->
                                 </v-card>
 
                                 <v-btn
@@ -115,10 +129,26 @@
                             <v-stepper-content step="3">
                                 <v-card
                                     class="mb-12"
-                                    color="grey lighten-1"
-                                    height="200px"
+                                    flat
                                 >
                                     <input type="file" @input="photoUpload($event.target.files[0])" />
+                                    <div class="mt-5">
+                                        <v-row>
+                                            <v-col
+                                                v-for="(file,index) in imageFiles"
+                                                :key="index"
+                                                class="d-flex child-flex"
+                                                cols="4"
+                                            >
+                                                <v-img
+                                                    :src="file"
+                                                    :lazy-src="file"
+                                                    aspect-ratio="1"
+                                                    class="grey lighten-2"
+                                                ></v-img>
+                                            </v-col>
+                                        </v-row>
+                                    </div>
                                 </v-card>
 
                                 <v-btn
@@ -132,6 +162,7 @@
                                 <v-btn
                                     color="primary"
                                     @click="el = 4"
+                                    :disabled="imageFiles.length === 0 "
                                 >
                                     Next
                                 </v-btn>
@@ -145,30 +176,35 @@
                                     <v-row>
                                         <v-col sm="6">
                                             <v-text-field
+                                                v-model="traderName"
                                                 filled
                                                 label="Trader Name"
                                             />
                                         </v-col>
                                         <v-col sm="6">
                                             <v-text-field
+                                                v-model="number1"
                                                 filled
                                                 label="Phone Number 1"
                                             />
                                         </v-col>
                                         <v-col sm="6">
                                             <v-text-field
+                                                v-model="number2"
                                                 filled
                                                 label="Phone Number 2 (If available)"
                                             />
                                         </v-col>
                                         <v-col sm="6">
                                             <v-text-field
+                                                v-model="market"
                                                 filled
                                                 label="Market"
                                             />
                                         </v-col>
                                         <v-col sm="6">
                                             <v-select
+                                                v-model="district"
                                                 :items="districts"
                                                 filled
                                                 label="District"
@@ -176,12 +212,14 @@
                                         </v-col>
                                         <v-col sm="6">
                                             <v-text-field
+                                                v-model="price"
                                                 filled
                                                 label="Price (MWK per unit)"
                                             />
                                         </v-col>
                                         <v-col sm="6">
                                             <v-select
+                                                v-model="unit"
                                                 :items="units"
                                                 filled
                                                 label="Unit"
@@ -189,12 +227,14 @@
                                         </v-col>
                                         <v-col sm="6">
                                             <v-text-field
+                                                v-model="amount"
                                                 filled
                                                 label="Amount of units"
                                             />
                                         </v-col>
                                         <v-col sm="6">
                                             <v-select
+                                                v-model="presentation"
                                                 :items="presentations"
                                                 filled
                                                 label="Presentation"
@@ -202,6 +242,7 @@
                                         </v-col>
                                         <v-col sm="6">
                                             <v-select
+                                                v-model="statusSelected"
                                                 :items="statuses"
                                                 filled
                                                 label="Status"
@@ -252,6 +293,7 @@
                                         </v-col>
                                         <v-col sm="6">
                                             <v-select
+                                                v-model="shareWith"
                                                 :items="shareWithOptions"
                                                 filled
                                                 label="Share With"
@@ -259,6 +301,7 @@
                                         </v-col>
                                         <v-col sm="6">
                                             <v-select
+                                                v-model="alsoShareOption"
                                                 :items="alsoShareToOptions"
                                                 filled
                                                 label="Also Share To"
@@ -277,8 +320,102 @@
 
                                 <v-btn
                                     color="primary"
+                                    @click="el = 5"
                                 >
-                                    Summary
+                                    Next
+                                </v-btn>
+                            </v-stepper-content>
+
+                            <v-stepper-content step="5">
+                                <v-card
+                                    class="mt-6 mb-12"
+                                    flat
+                                >
+                                    <v-row>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Species</div>
+                                            <div>{{speciesSelected}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Location</div>
+                                            <div>{{marker.position.lat}} {{marker.position.lng}}</div>
+                                        </v-col>
+                                        <v-col sm="12">
+                                            <div class="blue--text darken-3 title">Media</div>
+                                            <div class="mt-5">
+                                                <v-row>
+                                                    <v-col
+                                                        v-for="(file,index) in imageFiles"
+                                                        :key="index"
+                                                        class="d-flex child-flex"
+                                                        cols="4"
+                                                    >
+                                                        <v-img
+                                                            :src="file"
+                                                            :lazy-src="file"
+                                                            aspect-ratio="1"
+                                                            class="grey lighten-2"
+                                                        ></v-img>
+                                                    </v-col>
+                                                </v-row>
+                                            </div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Market</div>
+                                            <div>{{market}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">District</div>
+                                            <div>{{district}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Price per Unit</div>
+                                            <div>{{price}}/{{unit}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Amount</div>
+                                            <div>{{amount}} {{unit}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Presentation</div>
+                                            <div>{{presentation}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Status</div>
+                                            <div>{{statusSelected}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Date</div>
+                                            <div>{{date}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Contacts</div>
+                                            {{number1}} {{number2 !=="0" || number2 !== null ?number2:''}}
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Share Wit</div>
+                                            <div>{{shareWith}}</div>
+                                        </v-col>
+                                        <v-col sm="6">
+                                            <div class="blue--text darken-3 title">Also Share To</div>
+                                            <div>{{alsoShareOption}}</div>
+                                        </v-col>
+                                    </v-row>
+                                </v-card>
+
+                                <v-btn
+                                    color="primary"
+                                    @click="el = 4"
+                                    text
+                                >
+                                    Previous
+                                </v-btn>
+
+                                <v-btn
+                                    color="primary"
+                                    @click="submit"
+                                >
+                                    Submit
                                 </v-btn>
                             </v-stepper-content>
                         </v-stepper-items>
@@ -292,11 +429,11 @@
 <script>
 // import {db} from '@/Plugins/db'
 import {database, storage} from "@/app";
-import {onValue, ref} from "firebase/database";
-import { ref as storageRef, uploadString } from "firebase/storage";
+import {onValue, push, ref, set, onChildAdded} from "firebase/database";
+import { ref as storageRef, uploadString, getDownloadURL } from "firebase/storage";
 
 export default {
-    name: "Home",
+    name: "New",
 
     components:{
 
@@ -342,6 +479,20 @@ export default {
             shareWithOptions:['Everyone','Admins Only'],
             alsoShareToOptions:['Whatsapp','Text Message','Market Only'],
 
+            //selected items
+            traderName:null,
+            number1:null,
+            number2:null,
+            market:null,
+            district:null,
+            price:null,
+            unit:null,
+            amount:null,
+            presentation:null,
+            statusSelected:null,
+            shareWith:null,
+            alsoShareOption:null,
+
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             menu: false,
             marker: { position: { lat: 10, lng: 10 } },
@@ -350,10 +501,16 @@ export default {
             mapOptions: {
                 disableDefaultUI: true,
             },
+            imageFiles:[],
+            info: [],
         }
     },
 
     created() {
+        const traderRef = ref(database, 'Traders/' + this.user.data.uid + '/personalInformation');
+        onValue(traderRef, (snapshot) => {
+            this.info= snapshot.val()
+        });
 
     },
     mounted() {
@@ -366,21 +523,105 @@ export default {
         },
     },
     methods: {
+        submit(){
+            const timestamp=new Date().getTime()
+            const now=this.getDate(timestamp)
+
+            const productRef = ref(database, 'Products/'+now);
+            // const newChatRef = push(productRef);
+            // const _lastMessageId=newChatRef.key;
+            let product={
+                agent:this.info.name,
+                amount:this.amount,
+                date:this.productDate(timestamp),
+                district:this.district,
+                image1:this.imageFiles[0],
+                image2:this.imageFiles[1]?this.imageFiles[1]:"",
+                image3:this.imageFiles[2]?this.imageFiles[2]:"",
+                image4:this.imageFiles[3]?this.imageFiles[3]:"",
+                latitude:this.marker.position.lat,
+                longitude:this.marker.position.lng,
+                market:this.market,
+                number1:this.number1,
+                number2:this.number2,
+                'pid':now,
+                presentation:this.presentation,
+                price:this.price,
+                shareTo:this.alsoShareOption,
+                shareWith:this.shareWith,
+                species:this.speciesSelected,
+                status:this.statusSelected,
+                traderName:this.traderName,
+                uid:this.user.data.uid,
+                unit:this.unit,
+            }
+
+            console.log(product)
+
+            set(productRef, product);
+
+            onChildAdded(productRef,(data)=>{
+                const userCatalogRef = ref(database,'Traders/'+this.user.data.uid+"/Catalog/"+now)
+                set(userCatalogRef, product);
+
+                this.$router.push({name:'dashboard'})
+            })
+        },
+        getDate(timestamp){
+            let date = new Date(timestamp);
+            return date.getDate()+ " "+this.getMonth((date.getMonth()+1))+ " "+date.getFullYear()+ " "+date.getHours()+ ":"+date.getMinutes()+ ":"+date.getSeconds()
+        },
+        productDate(timestamp){
+            let date = new Date(timestamp);
+            return date.getDate()+ " "+this.getMonth((date.getMonth()+1))+ " "+date.getFullYear()
+        },
+        getMonth(month){
+            switch (month){
+                case 1:
+                    return 'Jan'
+                case 2:
+                    return 'Feb'
+                case 3:
+                    return 'Mar'
+                case 4:
+                    return 'Apr'
+                case 5:
+                    return 'May'
+                case 6:
+                    return 'Jun'
+                case 7:
+                    return 'Jul'
+                case 8:
+                    return 'Aug'
+                case 9:
+                    return 'Sep'
+                case 10:
+                    return 'Oct'
+                case 11:
+                    return 'Nov'
+                case 12:
+                    return 'Dec'
+                default:
+                    return ''
+
+
+            }
+        },
         photoUpload(file){
             const reader=new FileReader();
             if (file){
                 reader.readAsDataURL(file);
                 reader.onload=(e)=>{
-                    let result=(e.target.result).split(",")
-                   console.log(result)
+                   /* let result=(e.target.result).split(",")
+                   console.log(result)*/
 
                     const timestamp=new Date().getTime();
-                    const fileRef = storageRef(storage,"Product_Images/"+this.user.data.uid+"/"+timestamp)
-
-                    console.log(fileRef)
+                    const fileRef = storageRef(storage,"Product_Images/"+this.user.data.uid+"/"+this.getDate(timestamp))
 
                     uploadString(fileRef, e.target.result, 'data_url').then((snapshot) => {
-                        console.log(snapshot);
+                        getDownloadURL(fileRef).then((url)=>{
+                            this.imageFiles.push(url)
+                        })
                     });
                 };
             }
@@ -411,7 +652,6 @@ export default {
         //Moves the marker to click position on the map
         handleMapClick(e) {
             this.marker.position = { lat: e.latLng.lat(), lng: e.latLng.lng() };
-            console.log(e);
         },
     },
 }

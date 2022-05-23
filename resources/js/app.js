@@ -30,15 +30,16 @@ Vue.use(VueGoogleMaps, {
 });
 
 
-const firebaseConfig={
-    apiKey:'AIzaSyDCo_VeA3dm4ASOcO6Cl254_VxtxPv4rm4',
-    // authDomain: "your-firebase-auth-domain",
+const firebaseConfig = {
+    apiKey: "AIzaSyCqSqO6T01o3SHerMrTysJLIZBjWHsraKY",
+    authDomain: "fish-market-app-52bb0.firebaseapp.com",
+    databaseURL: "https://fish-market-app-52bb0-default-rtdb.firebaseio.com",
     projectId: "fish-market-app-52bb0",
-    storageBucket: "gs://fish-market-app-52bb0.appspot.com",
+    storageBucket: "fish-market-app-52bb0.appspot.com",
     messagingSenderId: "42879463880",
-    // appId: "your-firebase-app-id",
-    databaseURL: 'https://fish-market-app-52bb0-default-rtdb.firebaseio.com/'
-}
+    appId: "1:42879463880:web:b9aa9c80db857930ff90fd",
+    measurementId: "G-JKLC6Y3T1L"
+};
 
 const _app=firebase.initializeApp(firebaseConfig)
 
