@@ -10,20 +10,23 @@
             <div class="pa-3 title">
                 {{request.customer}}
 
-                <span>
+                <div>
+                      <span>
                      <v-chip
-                         class="blue lighten-4 ml-2" style="color: #1565C0; "
+                         class="blue lighten-4" style="color: #1565C0; "
                      >
                       K{{request.price}}/{{request.unit}}
                     </v-chip>
                 </span>
-                <span>
+                    <span>
                      <v-chip
                          class="blue lighten-4 ml-2" style="color: #1565C0; "
                      >
                       {{request.amount}} {{request.species}}
                     </v-chip>
                 </span>
+                </div>
+
             </div>
 
         </v-card>
