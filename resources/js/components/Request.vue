@@ -1,7 +1,5 @@
 <template>
-    <v-col
-        sm="12"
-    >
+    <div class="mb-3">
         <v-card
             class="pa-2 "
             @click="dialog=true"
@@ -208,6 +206,7 @@
                         color="primary"
                         text
                         @click="viewChat"
+                        :disabled="request.uid === user.data.uid"
                     >
                         Chat
                     </v-btn>
@@ -222,7 +221,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-    </v-col>
+    </div>
 
 </template>
 
@@ -240,11 +239,16 @@ export default {
     created(){
 
     },
+    computed:{
+        user(){
+            return this.$store.getters.user
+        },
+    },
 
     methods:{
         viewChat(){
             this.dialog=false
-            // this.$emit('chat',this.request.uid)
+            this.$emit('chat',this.request.uid)
         },
         getDate(timestamp){
             let date = new Date(timestamp);

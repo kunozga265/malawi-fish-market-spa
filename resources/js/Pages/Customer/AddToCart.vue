@@ -27,7 +27,7 @@
                                     :complete="el > 2"
                                     step="2"
                                 >
-                                    Choose Location
+                                   Detailed Description
                                 </v-stepper-step>
 
                                 <v-divider></v-divider>
@@ -36,21 +36,14 @@
                                     step="3"
                                     :complete="el > 3"
                                 >
-                                    Add Media
+                                    Payment Method
                                 </v-stepper-step>
 
                                 <v-divider></v-divider>
 
                                 <v-stepper-step
                                     step="4"
-                                    :complete="el > 4"
                                 >
-                                    Add Details
-                                </v-stepper-step>
-
-                                <v-divider></v-divider>
-
-                                <v-stepper-step step="5">
                                     Summary
                                 </v-stepper-step>
                             </v-stepper-header>
@@ -88,99 +81,12 @@
                                         class="mb-12"
                                         flat
                                     >
-                                        <GmapMap
-                                            :center="center"
-                                            :zoom="18"
-                                            map-style-id="roadmap"
-                                            :options="mapOptions"
-                                            style="width: 100vmin; height: 50vmin"
-                                            ref="mapRef"
-                                            @click="handleMapClick"
-                                        >
-                                            <GmapMarker
-                                                :position="marker.position"
-                                                :clickable="true"
-                                                :draggable="true"
-                                                @drag="handleMarkerDrag"
-                                                @click="panToMarker"
-                                            />
-                                        </GmapMap>
-                                        <div class="mt-5">
-                                            <v-btn @click="geolocate">Reset Location</v-btn>
-                                            <p>Selected Position: {{ marker.position }}</p>
-                                        </div>
-
-                                    </v-card>
-
-                                    <v-btn
-                                        color="primary"
-                                        @click="el = 1"
-                                        text
-                                    >
-                                        Previous
-                                    </v-btn>
-
-                                    <v-btn
-                                        color="primary"
-                                        @click="el = 3"
-                                    >
-                                        Next
-                                    </v-btn>
-                                </v-stepper-content>
-
-                                <v-stepper-content step="3">
-                                    <v-card
-                                        class="mb-12"
-                                        flat
-                                    >
-                                        <input type="file" @input="photoUpload($event.target.files[0])" />
-                                        <div class="mt-5">
-                                            <v-row>
-                                                <v-col
-                                                    v-for="(file,index) in imageFiles"
-                                                    :key="index"
-                                                    class="d-flex child-flex"
-                                                    cols="4"
-                                                >
-                                                    <v-img
-                                                        :src="file"
-                                                        :lazy-src="file"
-                                                        aspect-ratio="1"
-                                                        class="grey lighten-2"
-                                                    ></v-img>
-                                                </v-col>
-                                            </v-row>
-                                        </div>
-                                    </v-card>
-
-                                    <v-btn
-                                        color="primary"
-                                        @click="el = 2"
-                                        text
-                                    >
-                                        Previous
-                                    </v-btn>
-
-                                    <v-btn
-                                        color="primary"
-                                        @click="el = 4"
-                                        :disabled="imageFiles.length === 0 "
-                                    >
-                                        Next
-                                    </v-btn>
-                                </v-stepper-content>
-
-                                <v-stepper-content step="4">
-                                    <v-card
-                                        class="mt-6 mb-12"
-                                        flat
-                                    >
                                         <v-row>
                                             <v-col cols="12" sm="6">
                                                 <v-text-field
-                                                    v-model="traderName"
+                                                    v-model="buyerName"
                                                     filled
-                                                    label="Trader Name"
+                                                    label="Buyer Name"
                                                     :rules="[rules.required]"
                                                 />
                                             </v-col>
@@ -201,9 +107,9 @@
                                             </v-col>
                                             <v-col cols="12" sm="6">
                                                 <v-text-field
-                                                    v-model="market"
+                                                    v-model="termsAndConditions"
                                                     filled
-                                                    label="Market"
+                                                    label="Terms and Conditions of Trade"
                                                     :rules="[rules.required]"
                                                 />
                                             </v-col>
@@ -259,73 +165,14 @@
                                                     :rules="[rules.required]"
                                                 />
                                             </v-col>
-                                            <v-col cols="12" sm="6">
-                                                <v-menu
-                                                    ref="menu"
-                                                    v-model="menu"
-                                                    :close-on-content-click="false"
-                                                    :return-value.sync="date"
-                                                    transition="scale-transition"
-                                                    offset-y
-                                                    min-width="auto"
-                                                >
-                                                    <template v-slot:activator="{ on, attrs }">
-                                                        <v-text-field
-                                                            v-model="date"
-                                                            label="Date"
-                                                            readonly
-                                                            v-bind="attrs"
-                                                            v-on="on"
-                                                            filled
-                                                        ></v-text-field>
-                                                    </template>
-                                                    <v-date-picker
-                                                        v-model="date"
-                                                        no-title
-                                                        scrollable
-                                                    >
-                                                        <v-spacer></v-spacer>
-                                                        <v-btn
-                                                            text
-                                                            color="primary"
-                                                            @click="menu = false"
-                                                        >
-                                                            Cancel
-                                                        </v-btn>
-                                                        <v-btn
-                                                            text
-                                                            color="primary"
-                                                            @click="$refs.menu.save(date)"
-                                                        >
-                                                            OK
-                                                        </v-btn>
-                                                    </v-date-picker>
-                                                </v-menu>
-                                            </v-col>
-                                            <v-col cols="12" sm="6">
-                                                <v-select
-                                                    v-model="shareWith"
-                                                    :items="shareWithOptions"
-                                                    filled
-                                                    label="Share With"
-                                                    :rules="[rules.required]"
-                                                />
-                                            </v-col>
-                                            <v-col cols="12" sm="6">
-                                                <v-select
-                                                    v-model="alsoShareOption"
-                                                    :items="alsoShareToOptions"
-                                                    filled
-                                                    label="Also Share To"
-                                                    :rules="[rules.required]"
-                                                />
-                                            </v-col>
                                         </v-row>
+
+
                                     </v-card>
 
                                     <v-btn
                                         color="primary"
-                                        @click="el = 3"
+                                        @click="el = 1"
                                         text
                                     >
                                         Previous
@@ -333,18 +180,132 @@
 
                                     <v-btn
                                         color="primary"
-                                        @click="el = 5"
+                                        @click="el = 3"
                                         :disabled="!validation"
                                     >
                                         Next
                                     </v-btn>
                                 </v-stepper-content>
 
-                                <v-stepper-content step="5">
+                                <v-stepper-content step="3">
                                     <v-card
-                                        class="mt-6 mb-12"
+                                        class="mb-12"
                                         flat
-                                        width="100%"
+                                    >
+                                        <v-expansion-panels>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>
+                                                    Payment Method
+                                                    <span>
+                                                         <v-chip
+                                                             class="ma-2 font-weight-bold"
+                                                             color="blue lighten-4"
+                                                         >
+                                                        {{getPaymentMethod}}
+                                                    </v-chip>
+                                                    </span>
+
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <v-list-item-group
+                                                        v-model="paymentMethod"
+                                                        color="primary"
+                                                    >
+                                                        <v-list-item>
+                                                            <v-list-item-content>
+                                                                <v-list-item-title>Cash</v-list-item-title>
+                                                            </v-list-item-content>
+                                                        </v-list-item>
+                                                        <v-list-item>
+                                                            <v-list-item-content>
+                                                                <v-list-item-title>Credit</v-list-item-title>
+                                                            </v-list-item-content>
+                                                        </v-list-item>
+                                                    </v-list-item-group>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-divider/>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>
+                                                    Preferred Payment Method
+                                                    <span>
+                                                         <v-chip
+                                                             class="ma-2 font-weight-bold"
+                                                             color="blue lighten-4"
+                                                         >
+                                                        {{getPreferredPaymentMethod}}
+                                                    </v-chip>
+                                                    </span>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <v-list-item-group
+                                                        v-model="preferredPaymentMethod"
+                                                        color="primary"
+                                                    >
+                                                        <v-list-item>
+                                                            <v-list-item-content>
+                                                                <v-list-item-title>By Hand</v-list-item-title>
+                                                            </v-list-item-content>
+                                                        </v-list-item>
+                                                        <v-list-item>
+                                                            <v-list-item-content>
+                                                                <v-list-item-title>TNM Mpamba</v-list-item-title>
+                                                            </v-list-item-content>
+                                                        </v-list-item>
+                                                        <v-list-item>
+                                                            <v-list-item-content>
+                                                                <v-list-item-title >Airtel Money</v-list-item-title>
+                                                            </v-list-item-content>
+                                                        </v-list-item>
+                                                    </v-list-item-group>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>
+                                                    Date Time
+                                                    <span>
+                                                         <v-chip
+                                                             class="ma-2 font-weight-bold"
+                                                             color="blue lighten-4"
+                                                         >
+                                                        {{date}}
+                                                    </v-chip>
+                                                    </span>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <v-row justify="center">
+                                                    <v-date-picker v-model="date"></v-date-picker>
+                                                    </v-row>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
+                                        <div class="d-flex justify-space-between pa-5">
+                                            <div class="title">Total</div>
+                                            <div class="title blue--text darken-3 font-weight-bold">K{{amount*price}}</div>
+                                        </div>
+                                    </v-card>
+
+                                    <v-btn
+                                        color="primary"
+                                        @click="el = 2"
+                                        text
+                                    >
+                                        Previous
+                                    </v-btn>
+
+                                    <v-btn
+                                        color="primary"
+                                        @click="el=4"
+
+                                    >
+                                        Next
+                                    </v-btn>
+                                </v-stepper-content>
+
+                                <v-stepper-content step="4">
+                                    <v-card
+                                        class="mb-12"
+                                        flat
                                     >
                                         <v-row>
                                             <v-col cols="12" sm="6">
@@ -352,32 +313,8 @@
                                                 <div>{{speciesSelected}}</div>
                                             </v-col>
                                             <v-col cols="12" sm="6">
-                                                <div class="blue--text darken-3 title">Location</div>
-                                                <div>{{marker.position.lat}} {{marker.position.lng}}</div>
-                                            </v-col>
-                                            <v-col sm="12">
-                                                <div class="blue--text darken-3 title">Media</div>
-                                                <div class="mt-5">
-                                                    <v-row>
-                                                        <v-col
-                                                            v-for="(file,index) in imageFiles"
-                                                            :key="index"
-                                                            class="d-flex child-flex"
-                                                            cols="4"
-                                                        >
-                                                            <v-img
-                                                                :src="file"
-                                                                :lazy-src="file"
-                                                                aspect-ratio="1"
-                                                                class="grey lighten-2"
-                                                            ></v-img>
-                                                        </v-col>
-                                                    </v-row>
-                                                </div>
-                                            </v-col>
-                                            <v-col cols="12" sm="6">
-                                                <div class="blue--text darken-3 title">Market</div>
-                                                <div>{{market}}</div>
+                                                <div class="blue--text darken-3 title">Terms and Conditions of Trade</div>
+                                                <div>{{ termsAndConditions }}</div>
                                             </v-col>
                                             <v-col cols="12" sm="6">
                                                 <div class="blue--text darken-3 title">District</div>
@@ -408,19 +345,20 @@
                                                 {{number1}} {{number2 !=="0" || number2 !== null ?number2:''}}
                                             </v-col>
                                             <v-col cols="12" sm="6">
-                                                <div class="blue--text darken-3 title">Share With</div>
-                                                <div>{{shareWith}}</div>
+                                                <div class="blue--text darken-3 title">Payment Method</div>
+                                                <div>{{getPaymentMethod}}</div>
                                             </v-col>
                                             <v-col cols="12" sm="6">
-                                                <div class="blue--text darken-3 title">Also Share To</div>
-                                                <div>{{alsoShareOption}}</div>
+                                                <div class="blue--text darken-3 title">Preferred Payment Method</div>
+                                                <div>{{getPreferredPaymentMethod}}</div>
                                             </v-col>
                                         </v-row>
+
                                     </v-card>
 
                                     <v-btn
                                         color="primary"
-                                        @click="el = 4"
+                                        @click="el = 2"
                                         text
                                     >
                                         Previous
@@ -430,7 +368,7 @@
                                         color="primary"
                                         @click="submit"
                                     >
-                                        Submit
+                                        Add to cart
                                     </v-btn>
                                 </v-stepper-content>
                             </v-stepper-items>
@@ -505,18 +443,20 @@ export default {
             alsoShareToOptions:['Whatsapp','Text Message','Market Only'],
 
             //selected items
-            traderName:"",
+            buyerName:"",
             number1:"",
-            number2:null,
-            market:"",
+            number2:"",
+            termsAndConditions:"",
             district:"",
             price:"",
             unit:"",
             amount:"",
             presentation:"",
             statusSelected:"",
-            shareWith:"",
-            alsoShareOption:"",
+            paymentMethod:0,
+            preferredPaymentMethod:0,
+            shareWith:null,
+            alsoShareOption:null,
 
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             menu: false,
@@ -532,26 +472,41 @@ export default {
     },
 
     created() {
-        const traderRef = ref(database, 'Traders/' + this.user.data.uid + '/personalInformation');
-        onValue(traderRef, (snapshot) => {
+        const customerRef = ref(database, 'Customers/' + this.user.data.uid + '/personalInformation');
+        onValue(customerRef, (snapshot) => {
             this.info= snapshot.val()
         });
 
-    },
-    mounted() {
-        this.geolocate();
     },
 
     computed:{
         user(){
             return this.$store.getters.user
         },
+        getPaymentMethod(){
+            switch (this.paymentMethod){
+                case 0:
+                    return 'Cash'
+                default:
+                    return 'Credit'
+            }
+        },
+        getPreferredPaymentMethod(){
+            switch (this.preferredPaymentMethod){
+                case 0:
+                    return 'By Hand'
+                case 1:
+                    return 'TNM Mpamba'
+                default:
+                    return 'Airtel Money'
+            }
+        },
         validation(){
-            if(this.traderName.length === 0 || this.traderName === "")
+            if(this.buyerName.length === 0 || this.buyerName === "")
                 return false
             else if(this.number1.length === 0 || this.number1 === "")
                 return false
-            else if(this.market.length === 0 || this.market === "")
+            else if(this.termsAndConditions.length === 0 || this.termsAndConditions === "")
                 return false
             else if(this.district.length === 0 || this.district === "")
                 return false
@@ -565,10 +520,6 @@ export default {
                 return false
             else if(this.statusSelected.length === 0 || this.statusSelected === "")
                 return false
-            else if(this.shareWith.length === 0 || this.shareWith === "")
-                return false
-            else if(this.alsoShareOption.length === 0 || this.alsoShareOption === "")
-                return false
             else
                 return true
         }
@@ -578,42 +529,40 @@ export default {
             const timestamp=new Date().getTime()
             const now=this.getDate(timestamp)
 
-            const productRef = ref(database, 'Products/'+now);
+            const paymentTimestamp=new Date(this.date).getTime()
+
+            const customerRef = ref(database, 'Requests/'+now);
             // const newChatRef = push(productRef);
             // const _lastMessageId=newChatRef.key;
-            let product={
-                agent:this.info.name,
+            let customer={
+                customer:this.info.name,
                 amount:this.amount,
                 date:this.productDate(timestamp),
                 district:this.district,
-                image1:this.imageFiles[0],
-                image2:this.imageFiles[1]?this.imageFiles[1]:"",
-                image3:this.imageFiles[2]?this.imageFiles[2]:"",
-                image4:this.imageFiles[3]?this.imageFiles[3]:"",
-                latitude:this.marker.position.lat,
-                longitude:this.marker.position.lng,
-                market:this.market,
+                termsAndConditions:this.termsAndConditions,
                 number1:this.number1,
                 number2:this.number2,
                 'pid':now,
                 presentation:this.presentation,
                 price:this.price,
-                shareTo:this.alsoShareOption,
-                shareWith:this.shareWith,
+                paymentMethod:this.getPaymentMethod,
+                preferredPaymentMethod:this.getPreferredPaymentMethod,
+                'paymentTimestamp':paymentTimestamp,
                 species:this.speciesSelected,
                 status:this.statusSelected,
-                traderName:this.traderName,
+                buyerName:this.buyerName,
                 uid:this.user.data.uid,
                 unit:this.unit,
             }
 
-            // console.log(product)
+            console.log(customer)
 
-            set(productRef, product);
+            set(customerRef, customer);
 
-            onChildAdded(productRef,(data)=>{
-                const userCatalogRef = ref(database,'Traders/'+this.user.data.uid+"/Catalog/"+now)
-                set(userCatalogRef, product);
+            onChildAdded(customerRef,(data)=>{
+                const userRequestRef = ref(database,'Customers/'+this.user.data.uid+"/Requests/"+now)
+                set(userRequestRef, customer);
+
             })
 
             this.$router.push({name:'dashboard'})
@@ -657,52 +606,6 @@ export default {
 
 
             }
-        },
-        photoUpload(file){
-            const reader=new FileReader();
-            if (file){
-                reader.readAsDataURL(file);
-                reader.onload=(e)=>{
-                   /* let result=(e.target.result).split(",")
-                   console.log(result)*/
-
-                    const timestamp=new Date().getTime();
-                    const fileRef = storageRef(storage,"Product_Images/"+this.user.data.uid+"/"+this.getDate(timestamp))
-
-                    uploadString(fileRef, e.target.result, 'data_url').then((snapshot) => {
-                        getDownloadURL(fileRef).then((url)=>{
-                            this.imageFiles.push(url)
-                        })
-                    });
-                };
-            }
-        },
-        //detects location from browser
-        geolocate() {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.marker.position = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                };
-
-                this.panToMarker();
-            });
-        },
-
-        //sets the position of marker when dragged
-        handleMarkerDrag(e) {
-            this.marker.position = { lat: e.latLng.lat(), lng: e.latLng.lng() };
-        },
-
-        //Moves the map view port to marker
-        panToMarker() {
-            this.$refs.mapRef.panTo(this.marker.position);
-            // this.$refs.mapRef.setZoom(18);
-        },
-
-        //Moves the marker to click position on the map
-        handleMapClick(e) {
-            this.marker.position = { lat: e.latLng.lat(), lng: e.latLng.lng() };
         },
     },
 }

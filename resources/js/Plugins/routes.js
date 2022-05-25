@@ -10,7 +10,7 @@ import Catalog from "@/Pages/Catalog";
 import New from '@/Pages/New'
 import LoginCustomer from "@/Pages/Customer/LoginCustomer";
 import HomeCustomer from "@/Pages/Customer/HomeCustomer";
-import NewCart from "@/Pages/Customer/NewCart";
+import AddToCart from "@/Pages/Customer/AddToCart";
 import AppLayoutCustomer from "@/Layouts/AppLayoutCustomer";
 import CatalogCustomer from "@/Pages/Customer/CatalogCustomer";
 import ProfileCustomer from "@/Pages/Customer/ProfileCustomer";
@@ -20,52 +20,54 @@ export default {
     routes: [
         {
             path: '/',
-            name: 'welcome',
-            component: Welcome,
-            meta:{
-                guest:true,
-                admin:true
-            },
-        },
-        {
-            path: '/trader/login',
-            name: 'login',
-            component: Login,
-            meta:{
-                guest:true,
-                admin:true
-            },
-        },
-        {
-            path: '/customer/login',
-            name: 'login-customer',
-            component: LoginCustomer,
-            meta:{
-                guest:true,
-                admin:true
-            },
-        },
-        {
-            path: '/',
             component: AppLayout,
             meta: {
                 auth: true,
                 admin: true
             },
+
             children: [
+                {
+
+                    path: '/',
+                    name: 'welcome',
+                    component: Welcome,
+                    meta:{
+                        guest:true,
+                        admin:true
+                    },
+                },
+                {
+                    path: '/trader/login',
+                    name: 'login',
+                    component: Login,
+                    meta:{
+                        guest:true,
+                        admin:true
+                    },
+                },
+                {
+                    path: '/customer/login',
+                    name: 'login-customer',
+                    component: LoginCustomer,
+                    meta:{
+                        guest:true,
+                        admin:true
+                    },
+                },
                 {
                     path: '/dashboard',
                     name: 'dashboard',
                     component: Home,
                 },
                 {
-                    path: '/profile/:uid',
+                    path: '/profile',
                     name: 'profile',
                     component: Profile,
                     props:true
                 },
                 {
-                    path: '/catalog/:uid',
+                    path: '/catalog',
                     name: 'catalog',
                     component: Catalog,
                     props:true
@@ -75,8 +77,26 @@ export default {
                     name: 'add-fish',
                     component: New,
                 },
+                {
+                    path: '/add-to-cart',
+                    name: 'add-to-cart',
+                    component: AddToCart,
+                },
+            ]}
 
-               /* //Customer Routes
+
+      /*  {
+            path: '/',
+            component: AppLayout,
+            meta: {
+                auth: true,
+                admin: true
+            },
+
+            children: [
+
+
+               /!* //Customer Routes
 
                 {
                     path: '/customer/dashboard',
@@ -88,7 +108,7 @@ export default {
                     path: '/customer/new',
                     name: 'customer-new',
                     component: NewCart,
-                },*/
+                },*!/
             ]
         },
         {
@@ -108,11 +128,7 @@ export default {
                     component: HomeCustomer,
                 },
 
-                {
-                    path: '/new',
-                    name: 'customer-new',
-                    component: NewCart,
-                },
+
 
                 {
                     path: '/profile/:uid',
@@ -127,6 +143,6 @@ export default {
                     props:true
                 },
             ]
-        }
+        }*/
     ]
 }

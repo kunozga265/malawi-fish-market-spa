@@ -22,11 +22,10 @@ export default new Vuex.Store({
     state: {
         user: {
             loggedIn: false,
-            data: null
+            data: null,
+            info:null,
+            type:null,
         },
-        personalInformation:{
-
-        }
     },
     getters: {
         user(state){
@@ -37,8 +36,22 @@ export default new Vuex.Store({
         SET_LOGGED_IN(state, value) {
             state.user.loggedIn = value;
         },
+        SET_USER_INFO(state, value) {
+            state.user.info = value;
+        },
+        SET_USER_TYPE(state, value) {
+            state.user.type = value;
+        },
         SET_USER(state, data) {
             state.user.data = data;
+        },
+        REMOVE_USER_DETAILS(state) {
+            state.user = {
+                loggedIn: false,
+                data: null,
+                info:null,
+                type:null
+            };
         }
     },
     actions: {
@@ -46,13 +59,25 @@ export default new Vuex.Store({
             commit("SET_LOGGED_IN", user !== null);
             if (user) {
                 commit("SET_USER", {
-                    displayName: user.displayName,
                     email: user.email,
                     uid: user.uid,
                 });
             } else {
                 commit("SET_USER", null);
             }
+        },
+        setUserInfo({ commit }, info) {
+            if (info) {
+                commit("SET_USER_INFO", info);
+            }
+        },
+        setUserType({ commit }, type) {
+            if (type) {
+                commit("SET_USER_TYPE", type);
+            }
+        },
+        logout({ commit }) {
+            commit("REMOVE_USER_DETAILS");
         }
     },
     plugins:[vuexLocalStorage.plugin]

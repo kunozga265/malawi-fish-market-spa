@@ -3,7 +3,9 @@
 </style>
 
 <template>
-    <div class="d-flex justify-center">
+    <div>
+        <toolbar/>
+        <v-layout class="d-flex justify-center">
             <v-card
                 flat
                 width="600"
@@ -22,9 +24,9 @@
                 </div>
 
                 <div class="text-center mt-5">
-                    <p class="headline">{{info.name}}</p>
+                    <p class="headline">{{user.info.name}}</p>
                     <p>{{user.data.email}}</p>
-                    <p>{{info.number1}}</p>
+                    <p>{{user.info.number1}}</p>
                     <v-btn
                         text
                         @click="logout"
@@ -35,7 +37,9 @@
                 </div>
 
             </v-card>
+        </v-layout>
     </div>
+
 </template>
 
 <script>
@@ -44,13 +48,13 @@
 import {database, auth} from "@/app";
 import {onValue, ref} from "firebase/database";
 import {signOut} from "firebase/auth";
+import Toolbar from "@/components/Toolbar";
 
 export default {
     name: "Profile",
-    props:['uid'],
 
     components:{
-
+        Toolbar
     },
 
     data() {
@@ -60,10 +64,7 @@ export default {
     },
 
     mounted() {
-        const traderRef = ref(database, 'Traders/' + this.uid + '/personalInformation');
-        onValue(traderRef, (snapshot) => {
-            this.info= snapshot.val()
-        });
+
     },
 
     computed:{
@@ -75,6 +76,7 @@ export default {
     methods:{
         logout () {
             signOut(auth).then(() => {
+                this.$store.dispatch("logout");
                 this.$router.replace({name:'welcome'})
             })
         }

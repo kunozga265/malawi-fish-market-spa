@@ -1,6 +1,13 @@
+<style>
+.layout{
+    padding-top: 114px;
+}
+</style>
+
 <template>
     <v-app>
         <v-main>
+<!--
             <v-toolbar
                 dark
                 color="blue darken-3"
@@ -9,7 +16,7 @@
                 <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
                 <v-toolbar-title>Malawi Fish Market</v-toolbar-title>
-<!--                <v-spacer></v-spacer>
+&lt;!&ndash;                <v-spacer></v-spacer>
                 <v-btn text>
                     Market
                 </v-btn>
@@ -18,34 +25,35 @@
                 </v-btn>
                 <v-btn text>
                     Profile
-                </v-btn>-->
+                </v-btn>&ndash;&gt;
 
             </v-toolbar>
+-->
 
             <router-view></router-view>
 
 
         </v-main>
-        <v-bottom-navigation
+<!--        <v-bottom-navigation
             :value="value"
             background-color="blue darken-3"
             grow
             dark
         >
-            <!--            <router-link :to="{name:'login'}">
+            &lt;!&ndash;            <router-link :to="{name:'login'}">
 
-                        </router-link>-->
+                        </router-link>&ndash;&gt;
             <v-btn :to="{name:'dashboard'}">
                 <span>Market</span>
 
                 <v-icon>mdi-store</v-icon>
             </v-btn>
 
-<!--            <v-btn :to="{name:'dashboard'}">
+&lt;!&ndash;            <v-btn :to="{name:'dashboard'}">
                 <span>Chat</span>
 
                 <v-icon>mdi-chat</v-icon>
-            </v-btn>-->
+            </v-btn>&ndash;&gt;
 
             <v-btn :to="{name:'catalog',params:{uid:user.data.uid}}">
                 <span>Catalog</span>
@@ -58,7 +66,7 @@
 
                 <v-icon>mdi-account</v-icon>
             </v-btn>
-        </v-bottom-navigation>
+        </v-bottom-navigation>-->
     </v-app>
 </template>
 

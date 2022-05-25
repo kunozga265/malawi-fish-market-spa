@@ -1,8 +1,9 @@
 <template>
     <v-col
-        sm="6"
-        md="6"
-        lg="4"
+       cols="12"
+       sm="6"
+        md="4"
+        lg="3"
     >
         <v-card
             class="pa-2 "
@@ -37,9 +38,9 @@
                 </v-card-title>
                 <v-carousel hide-delimiters>
                     <v-carousel-item
-                        v-for="(item,i) in items"
+                        v-for="(image,i) in imageFiles"
                         :key="i"
-                        :src="item.src"
+                        :src="image"
                     ></v-carousel-item>
                 </v-carousel>
 
@@ -60,7 +61,7 @@
 
                     <v-row>
                         <v-col
-                            sm="6"
+                           cols="12" md="6"
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
@@ -73,7 +74,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
-                            sm="6"
+                           cols="12" md="6"
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
@@ -86,7 +87,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
-                            sm="6"
+                           cols="12" md="6"
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
@@ -99,7 +100,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
-                            sm="6"
+                           cols="12" md="6"
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
@@ -112,7 +113,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
-                            sm="6"
+                           cols="12" md="6"
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
@@ -125,7 +126,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
-                            sm="6"
+                           cols="12" md="6"
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
@@ -138,7 +139,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
-                            sm="6"
+                           cols="12" md="6"
                         >
                             <v-list-item two-line>
                                 <v-list-item-action>
@@ -195,12 +196,32 @@ export default {
             src: this.product.image1,
         },)
     },
+    computed:{
+        imageFiles(){
+            let images=[]
+            if(this.product.image1 && this.product.image1 !== "null" && this.product.image1 !== "")
+                images.push(this.product.image1)
+
+            if(this.product.image2 && this.product.image2 !== "null" && this.product.image2 !== "")
+                images.push(this.product.image2)
+
+            if(this.product.image3 && this.product.image3 !== "null" && this.product.image3 !== "")
+                images.push(this.product.image3)
+
+            if(this.product.image4 && this.product.image4 !== "null" && this.product.image4 !== "")
+                images.push(this.product.image4)
+
+            return images
+
+        }
+    },
 
     methods:{
         viewChat(){
             this.dialog=false
             this.$emit('chat',this.product.uid)
-        }
+        },
+
     }
 
 }

@@ -52,9 +52,9 @@ export const storage=firebase.storage()
 //global variable
 Vue.prototype.$database = database
 
-onAuthStateChanged(auth,(user) => {
+/*onAuthStateChanged(auth,(user) => {
     store.dispatch("fetchUser", user);
-});
+});*/
 
 
 const app = new Vue({

@@ -82,6 +82,9 @@ a{
 <script>
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {onValue, ref} from "firebase/database";
+import {database} from "@/app";
+import store from "@/Plugins/store";
 
 export default {
     name: "Login",
@@ -101,6 +104,19 @@ export default {
             const auth=getAuth()
             signInWithEmailAndPassword(auth,this.form.email, this.form.password)
                 .then(data => {
+
+                    //commit user data
+                    this.$store.dispatch("fetchUser", {
+                        email:data.user.email,
+                        uid:data.user.uid
+                    });
+
+                    const traderRef = ref(database, 'Traders/' + data.user.uid + '/personalInformation');
+                    onValue(traderRef, (snapshot) => {
+                        this.$store.dispatch("setUserInfo", snapshot.val());
+                        this.$store.dispatch("setUserType", "Trader");
+                    });
+
                     this.$router.replace({ name: "dashboard" });
                 })
                 .catch(err => {
