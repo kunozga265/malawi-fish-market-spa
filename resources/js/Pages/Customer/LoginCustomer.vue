@@ -125,9 +125,7 @@ export default {
             signInWithEmailAndPassword(auth,this.form.email, this.form.password)
                 .then(data => {
 
-                    console.log(data)
-
-                    /*//commit user data
+                    //commit user data
                     this.$store.dispatch("fetchUser", {
                         email:data.user.email,
                         uid:data.user.uid
@@ -135,11 +133,14 @@ export default {
 
                     const customerRef = ref(database, 'Customers/' + data.user.uid + '/personalInformation');
                     onValue(customerRef, (snapshot) => {
-                        this.$store.dispatch("setUserInfo", snapshot.val());
-                        this.$store.dispatch("setUserType", "Customer");
+                        if(snapshot.val()){
+                            this.$store.dispatch("setUserInfo", snapshot.val());
+                            this.$store.dispatch("setUserType", "Customer");
+                            this.$router.replace({ name: "dashboard" });
+                        }else{
+                            this.$router.push({name:"personal-information"})
+                        }
                     });
-
-                    this.$router.replace({ name: "dashboard" });*/
                 })
                 .catch(err => {
                     if (err.code==="auth/user-not-found")

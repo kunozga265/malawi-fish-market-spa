@@ -46,8 +46,10 @@ a{
                         FISH MARKET
                     </p>-->
                     <div>
-                        <p class="mb-4 white--text headline">Trader Login</p>
-
+                        <div class="mb-4">
+                            <p class="white--text headline">Trader Login</p>
+                            <span class="red--text">{{error}}</span>
+                        </div>
 
                         <v-text-field
                             v-model="form.email"
