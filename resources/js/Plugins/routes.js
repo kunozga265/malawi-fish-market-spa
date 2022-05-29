@@ -14,6 +14,7 @@ import AddToCart from "@/Pages/Customer/AddToCart";
 import AppLayoutCustomer from "@/Layouts/AppLayoutCustomer";
 import CatalogCustomer from "@/Pages/Customer/CatalogCustomer";
 import ProfileCustomer from "@/Pages/Customer/ProfileCustomer";
+import PersonalInformation from "@/Pages/PersonalInformation";
 
 export default {
     mode: 'history',
@@ -38,8 +39,8 @@ export default {
                     },
                 },
                 {
-                    path: '/i-want-to-buy',
-                    name: 'i-want-to-buy',
+                    path: '/i-want-to-sell',
+                    name: 'i-want-to-sell',
                     component: Login,
                     meta:{
                         guest:true,
@@ -47,9 +48,18 @@ export default {
                     },
                 },
                 {
-                    path: '/i-want-to-sell',
-                    name: 'i-want-to-sell',
+                    path: '/i-want-to-buy',
+                    name: 'i-want-to-buy',
                     component: LoginCustomer,
+                    meta:{
+                        guest:true,
+                        admin:true
+                    },
+                },
+                {
+                    path: '/personalInformation',
+                    name: 'personal-information',
+                    component: PersonalInformation,
                     meta:{
                         guest:true,
                         admin:true

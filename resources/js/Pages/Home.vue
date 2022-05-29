@@ -92,7 +92,7 @@
                 </v-card-title>
 
                 <v-card-text>
-                    Developed and supported by LUANAR & MSU teams led by Prof Emmanuel Kaunda, Assistant Prof Abigail Bennet & Associate Prof Samson Katengeza
+                    Developed and supported by LUANAR & MSU teams led by Dr. Samson Katengeza, Prof Emmanuel Kaunda, Dr. Abigail Bennet, Edith Gondwe, Emma Rice, Patrick Chimseu, Gehazi Jenda and Kunozga Mlowoka with input from many other colleagues and stakeholders.
                 </v-card-text>
 
                 <v-divider></v-divider>
@@ -189,7 +189,7 @@
 
         <v-layout >
             <v-container>
-                <v-select
+<!--                <v-select
                     v-model="filter"
                     :items="filters"
                     filled
@@ -198,57 +198,78 @@
                     placeholder="Select a filter"
                     label="Filter By"
                     class="mt-2"
-                />
-                <v-select
-                    v-if="filter==='Species'"
-                    v-model="speciesSelected"
-                    :items="species"
-                    filled
-                    rounded
-                    dense
-                    placeholder="Select a species"
-                    label="Select Species"
-                />
-                <v-select
-                    v-else-if="filter==='Location'"
-                    v-model="district"
-                    :items="districts"
-                    filled
-                    rounded
-                    dense
-                    placeholder="Select a location"
-                    label="Select Location"
-                />
-                <v-select
-                    v-else-if="filter==='Location'"
-                    v-model="district"
-                    :items="districts"
-                    filled
-                    rounded
-                    dense
-                    placeholder="Select a location"
-                    label="Select Location"
-                />
-                <v-select
-                    v-else-if="filter==='Presentation'"
-                    v-model="presentation"
-                    :items="presentations"
-                    filled
-                    rounded
-                    dense
-                    placeholder="Select a presentation"
-                    label="Select Presentation"
-                />
-                <v-select
-                    v-else-if="filter==='Units'"
-                    v-model="unit"
-                    :items="units"
-                    filled
-                    rounded
-                    dense
-                    placeholder="Select a presentation"
-                    label="Select Presentation"
-                />
+                />-->
+                <v-row class="pt-5">
+                    <v-col
+                        style="padding:0 12px"
+                        cols="12"
+                        sm="6"
+                    >
+                        <v-select
+                            v-model="speciesSelected"
+                            :items="species"
+                            filled
+                            rounded
+                            dense
+                            placeholder="Select a species"
+                            label="Select Species"
+                            clearable
+                        />
+                    </v-col>
+                    <v-col
+                         style="padding:0 12px"
+                        cols="12"
+                        sm="6"
+                    >
+                        <v-select
+                            v-model="district"
+                            :items="districts"
+                            filled
+                            rounded
+                            dense
+                            placeholder="Select a location"
+                            label="Select Location"
+                            clearable
+                        />
+                    </v-col>
+                    <v-col
+                        style="padding:0 12px"
+                        cols="12"
+                        sm="6"
+                    >
+                        <v-select
+                            v-model="presentation"
+                            :items="presentations"
+                            filled
+                            rounded
+                            dense
+                            placeholder="Select a presentation"
+                            label="Select Presentation"
+                            clearable
+                        />
+                    </v-col>
+                    <v-col
+                         style="padding:0 12px"
+                        cols="12"
+                        sm="6"
+                    >
+                        <v-select
+                            v-model="unit"
+                            :items="units"
+                            filled
+                            rounded
+                            dense
+                            placeholder="Select a unit"
+                            label="Select Unit"
+                            clearable
+                        />
+                    </v-col>
+                </v-row>
+
+
+
+
+
             </v-container>
         </v-layout>
         <div>
@@ -405,9 +426,9 @@ export default {
                 'Presentation',
                 'Units',
             ],
-            speciesSelected:'Batala',
-            species:['Batala','Chambo','Matemba','Mcheni','Mlamba','Ndunduma','Usipa','Utaka'],
-            district:'Balaka',
+            speciesSelected:null,
+            species:['Batala','Bombe','Chambo','Kampango','Kapenta','Matemba','Mcheni','Mlamba','Ndunduma','Usipa','Utaka'],
+            district:null,
             districts:[
                 'Balaka',
                 'Blantyre',
@@ -437,9 +458,9 @@ export default {
                 'Thyolo',
                 'Zomba',
             ],
-            presentation:'Smoked',
+            presentation:null,
             presentations:['Smoked','Sun Dried','Para Boiled','Fresh'],
-            unit:'Per 5L Bucket',
+            unit:null,
             units:['5L Bucket','Kg','Mulu','Fish'],
         }
     },
@@ -462,7 +483,34 @@ export default {
         },
         filteredProducts(){
             let products=Object.values(this.products);
-            switch (this.filter){
+
+            if(this.speciesSelected!=null){
+                products = (products).filter((product) => {
+                    return product.species.toLowerCase().includes(this.speciesSelected.toLowerCase())
+                })
+            }
+
+            if(this.district!=null){
+                products = (products).filter((product) => {
+                    return product.district.toLowerCase().includes(this.district.toLowerCase())
+                })
+            }
+
+            if(this.presentation!=null){
+                products = (products).filter((product) => {
+                    return product.presentation === this.presentation
+                })
+            }
+
+            if(this.unit!=null){
+                products = (products).filter((product) => {
+                    return product.unit === this.unit
+                })
+            }
+
+            return products
+
+            /*switch (this.filter){
                 case 'Species':
                     return (products).filter((product) => {
                         return product.species.toLowerCase().includes(this.speciesSelected.toLowerCase())
@@ -481,12 +529,39 @@ export default {
                     })
                 default:
                     return products
-            }
+            }*/
 
         },
         filteredRequests(){
             let requests=Object.values(this.requests);
-            switch (this.filter){
+
+            if(this.speciesSelected!=null){
+                requests = (requests).filter((request) => {
+                    return request.species.toLowerCase().includes(this.speciesSelected.toLowerCase())
+                })
+            }
+
+            if(this.district!=null){
+                requests = (requests).filter((request) => {
+                    return request.district.toLowerCase().includes(this.district.toLowerCase())
+                })
+            }
+
+            if(this.presentation!=null){
+                requests = (requests).filter((request) => {
+                    return request.presentation === this.presentation
+                })
+            }
+
+            if(this.unit!=null){
+                requests = (requests).filter((request) => {
+                    return request.unit === this.unit
+                })
+            }
+
+            return requests
+
+           /* switch (this.filter){
                 case 'Species':
                     return (requests).filter((request) => {
                         return request.species.toLowerCase().includes(this.speciesSelected.toLowerCase())
@@ -505,7 +580,7 @@ export default {
                     })
                 default:
                     return requests
-            }
+            }*/
 
         },
     },

@@ -55,7 +55,7 @@
                 </v-card-title>
 
                 <v-card-text>
-                    Developed and supported by LUANAR & MSU teams led by Prof Emmanuel Kaunda, Assistant Prof Abigail Bennet & Associate Prof Samson Katengeza
+                    Developed and supported by LUANAR & MSU teams led by Dr. Samson Katengeza, Prof Emmanuel Kaunda, Dr. Abigail Bennet, Edith Gondwe, Emma Rice, Patrick Chimseu, Gehazi Jenda and Kunozga Mlowoka with input from many other colleagues and stakeholders.
                 </v-card-text>
 
                 <v-divider></v-divider>

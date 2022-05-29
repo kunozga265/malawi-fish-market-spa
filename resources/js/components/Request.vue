@@ -77,7 +77,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                         </v-col>
-                        <v-col
+<!--                        <v-col
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -86,7 +86,7 @@
                                     <v-list-item-subtitle>Species</v-list-item-subtitle>
                                 </v-list-item-content>
                             </v-list-item>
-                        </v-col>
+                        </v-col>-->
                         <v-col
                             sm="6"
                         >
