@@ -1,31 +1,43 @@
 <template>
-    <div class="mb-3">
+    <v-col
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+    >
         <v-card
             class="pa-2 "
             @click="dialog=true"
         >
 
-            <div class="pa-3 title">
-                {{request.customer}}
-
-                <div>
-                      <span>
-                     <v-chip
-                         class="blue lighten-4" style="color: #1565C0; "
-                     >
-                      K{{request.price}}/{{request.unit}}
-                    </v-chip>
-                </span>
-                    <span>
-                     <v-chip
-                         class="blue lighten-4 ml-2" style="color: #1565C0; "
-                     >
-                      {{request.amount}} {{request.species}}
-                    </v-chip>
-                </span>
-                </div>
-
+            <div class="pt-3 title text-center">
+                {{request.species}}
             </div>
+            <div class=" text-center">
+                {{request.buyerName}}
+            </div>
+            <div class="pa-1 font-weight bold text-center">
+                <v-chip
+                    class="blue lighten-4" style="color: #1565C0; "
+                >
+                    K{{request.price}}/{{request.unit}}
+                </v-chip>
+            </div>
+            <div class="pa-1 font-weight bold text-center">
+                <v-chip
+                    class="blue lighten-4 ml-2" style="color: #1565C0; "
+                >
+                    {{request.amount}} {{request.unit}}
+                </v-chip>
+            </div>
+            <div class="pa-1 font-weight bold text-center">
+                <v-chip
+                    class="blue lighten-4 ml-2" style="color: #1565C0; "
+                >
+                    {{request.district}}, {{request.presentation}}
+                </v-chip>
+            </div>
+
 
         </v-card>
 
@@ -36,7 +48,7 @@
 
             <v-card width="600">
                 <v-card-title class="text-h5 grey lighten-2">
-                    {{ request.customer }}
+                    {{ request.species }}
                 </v-card-title>
 
                 <v-card-text>
@@ -55,6 +67,16 @@
                     <div class="title my-3">Detailed Description</div>
 
                     <v-row>
+                        <v-col
+                            sm="6"
+                        >
+                            <v-list-item two-line>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{request.buyerName}}</v-list-item-title>
+                                    <v-list-item-subtitle>Buyer Name</v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-col>
                         <v-col
                             sm="6"
                         >
@@ -178,7 +200,7 @@
                         >
                             <v-list-item two-line>
                                 <v-list-item-content>
-                                    <v-list-item-title>{{request.preferredPaymentMethod}}</v-list-item-title>
+                                    <v-list-item-title>{{request.paymentDeliveryMethod}}</v-list-item-title>
                                     <v-list-item-subtitle>Preferred Payment Method</v-list-item-subtitle>
                                 </v-list-item-content>
                             </v-list-item>
@@ -221,7 +243,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-    </div>
+    </v-col>
 
 </template>
 

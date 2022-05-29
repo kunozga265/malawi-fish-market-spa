@@ -38,8 +38,8 @@ export default {
                     },
                 },
                 {
-                    path: '/trader/login',
-                    name: 'login',
+                    path: '/i-want-to-buy',
+                    name: 'i-want-to-buy',
                     component: Login,
                     meta:{
                         guest:true,
@@ -47,8 +47,8 @@ export default {
                     },
                 },
                 {
-                    path: '/customer/login',
-                    name: 'login-customer',
+                    path: '/i-want-to-sell',
+                    name: 'i-want-to-sell',
                     component: LoginCustomer,
                     meta:{
                         guest:true,

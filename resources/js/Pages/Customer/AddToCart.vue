@@ -227,7 +227,7 @@
                                             <v-divider/>
                                             <v-expansion-panel>
                                                 <v-expansion-panel-header>
-                                                    Preferred Payment Method
+                                                    Preferred Delivery Method
                                                     <span>
                                                          <v-chip
                                                              class="ma-2 font-weight-bold"
@@ -546,7 +546,7 @@ export default {
                 presentation:this.presentation,
                 price:this.price,
                 paymentMethod:this.getPaymentMethod,
-                preferredPaymentMethod:this.getPreferredPaymentMethod,
+                paymentDeliveryMethod:this.getPreferredPaymentMethod,
                 'paymentTimestamp':paymentTimestamp,
                 species:this.speciesSelected,
                 status:this.statusSelected,

@@ -52,18 +52,17 @@ a{
                         FISH MARKET
                     </h1>-->
                     <div>
-                        <router-link :to="{name:'login'}">
+                        <router-link :to="{name:'i-want-to-buy'}">
                             <div class="f-button blue darken-3 my-5">
-                                Trader
+                                I want To Buy
                             </div>
                         </router-link >
 
-                        <router-link :to="{name:'login-customer'}">
-                        <div class="f-button blue darken-3">
-                            Customer
-                        </div>
-                        </router-link>
-
+                        <router-link :to="{name:'i-want-to-sell'}">
+                            <div class="f-button blue darken-3 my-5">
+                                I want To Sell
+                            </div>
+                        </router-link >
                     </div>
                 </div>
             </v-layout>

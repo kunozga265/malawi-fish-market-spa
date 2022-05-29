@@ -6,15 +6,19 @@
     bottom: 120px;
     width: auto;
     height: 600px;
+    z-index: 5;
 
     .chat-header {
         position: absolute;
         top: 0;
         width: 100%;
+        z-index: 1;
     }
 
     .chat-text{
         padding: 82px 20px 134px 20px;
+        overflow-y: scroll;
+        max-height: 574px;
 
         .chat-list{
             padding: 10px 0;

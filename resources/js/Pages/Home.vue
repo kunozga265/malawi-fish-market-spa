@@ -21,9 +21,16 @@
             fixed
         >
 <!--            <v-app-bar-nav-icon  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+<!--            <v-app-bar-nav-icon></v-app-bar-nav-icon>-->
 
-            <v-toolbar-title class="d-none d-sm-flex">Malawi Fish Market</v-toolbar-title>
+<!--            <v-toolbar-title class="d-none d-sm-flex">Malawi Fish Market</v-toolbar-title>-->
+            <div class="app-logo">
+                <v-avatar>
+                    <img src="/images/logos/fish_app_logo.png" alt="">
+                </v-avatar>
+
+            </div>
+
             <v-spacer></v-spacer>
 
 <!--            Smaller Screens-->
@@ -53,8 +60,8 @@
                 <v-btn text :to="{name:'profile'}">
                     Profile
                 </v-btn>
-                <v-btn icon text @click="about=true">
-                    <v-icon>mdi-comment-question</v-icon>
+                <v-btn text @click="about=true">
+                    About
                 </v-btn>
             </v-toolbar-items>
             <template v-slot:extension>
@@ -282,13 +289,17 @@
                         style="min-height: 100vh"
 
                     >
-                        <request
+                        <v-row
                             v-if="filteredRequests.length > 0"
-                            v-for="(request,index) in filteredRequests"
-                            :key="index"
-                            :request="request"
-                            @chat="chatWithTrader"
-                        />
+                        >
+                            <request
+
+                                v-for="(request,index) in filteredRequests"
+                                :key="index"
+                                :request="request"
+                                @chat="chatWithTrader"
+                            />
+                        </v-row>
                         <div
                             v-else
                             class="d-flex justify-center align-center"
