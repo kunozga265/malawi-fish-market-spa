@@ -123,7 +123,7 @@ import {database} from "@/app";
 
 export default {
     name: "Chat",
-    props:["receiverId"],
+    props:["receiverId","isTrader"],
 
     data() {
         return {
@@ -147,10 +147,17 @@ export default {
 
     watch:{
         receiverId:function () {
-            const traderRef = ref(database, 'Traders/' + this.receiverId + '/personalInformation');
-            onValue(traderRef, (snapshot) => {
-                this.info= snapshot.val()
-            });
+            if(this.isTrader){
+                const traderRef = ref(database, 'Traders/' + this.receiverId + '/personalInformation');
+                onValue(traderRef, (snapshot) => {
+                    this.info= snapshot.val()
+                });
+            }else{
+                const customerRef = ref(database, 'Customers/' + this.receiverId + '/personalInformation');
+                onValue(customerRef, (snapshot) => {
+                    this.info= snapshot.val()
+                });
+            }
         }
     },
     methods:{
