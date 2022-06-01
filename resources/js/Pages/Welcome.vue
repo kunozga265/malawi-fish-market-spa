@@ -30,7 +30,19 @@ a{
         width: 100%;
         padding: 0 60px;
     }
+
+    .logos{
+        padding: 8px 20px;
+        background-color: white;
+        border-radius: 12px;
+
+        img{
+            max-height: 95px;
+            padding: 0;
+        }
+    }
 }
+
 
 
 
@@ -39,7 +51,7 @@ a{
 <template>
     <v-app>
         <v-main>
-            <v-layout
+            <div
                 class="d-flex justify-center align-center background"
                 style="height: 100vh;"
             >
@@ -64,8 +76,26 @@ a{
                             </div>
                         </router-link >
                     </div>
+
+                    <div class="logos d-flex justify-space-between align-center">
+                        <div>
+                            <img
+                                src="/images/logos/luanar_logo.png"
+                            />
+                        </div>
+                        <div>
+                            <img
+                                src="/images/logos/african_alliance_logo.png"
+                            />
+                        </div>
+                        <div>
+                            <img
+                                src="/images/logos/michigan_logo.png"
+                            />
+                        </div>
+                    </div>
                 </div>
-            </v-layout>
+            </div>
         </v-main>
     </v-app>
 </template>

@@ -33,7 +33,7 @@ a{
 <template>
     <v-app>
         <v-main>
-            <v-layout
+            <div
                 class="d-flex justify-center align-center background"
                 style="height: 100vh;"
             >
@@ -70,13 +70,31 @@ a{
                             @click:append="show = !show"
                         ></v-text-field>
 
-                        <div class="f-button blue darken-3" @click="submit">
+                        <div class="f-button blue darken-3 mb-5" @click="submit">
                             Login
+                        </div>
+
+                        <div class="logos d-flex justify-space-between align-center">
+                            <div>
+                                <img
+                                    src="/images/logos/luanar_logo.png"
+                                />
+                            </div>
+                            <div>
+                                <img
+                                    src="/images/logos/african_alliance_logo.png"
+                                />
+                            </div>
+                            <div>
+                                <img
+                                    src="/images/logos/michigan_logo.png"
+                                />
+                            </div>
                         </div>
 
                     </div>
                 </div>
-            </v-layout>
+            </div>
         </v-main>
     </v-app>
 </template>
@@ -122,7 +140,10 @@ export default {
                     this.$router.replace({ name: "dashboard" });
                 })
                 .catch(err => {
-                    this.error = err.message;
+                    if (err.code==="auth/user-not-found")
+                        this.error="Invalid credentials"
+                    else
+                        this.error = err.message;
                 });
         }
     }

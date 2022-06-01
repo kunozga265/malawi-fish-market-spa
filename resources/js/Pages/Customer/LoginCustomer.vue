@@ -93,6 +93,24 @@ a{
                             Login with Google
                         </div>-->
 
+                        <div class="logos d-flex justify-space-between align-center">
+                            <div>
+                                <img
+                                    src="/images/logos/luanar_logo.png"
+                                />
+                            </div>
+                            <div>
+                                <img
+                                    src="/images/logos/african_alliance_logo.png"
+                                />
+                            </div>
+                            <div>
+                                <img
+                                    src="/images/logos/michigan_logo.png"
+                                />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
