@@ -55,7 +55,7 @@
                     Market
                 </v-btn>
                 <v-btn text :to="{name:'catalog'}">
-                    Catalog
+                    {{ isTrader?'Catalog':'Requests' }}
                 </v-btn>
                 <v-btn text :to="{name:'profile'}">
                     Profile
@@ -340,6 +340,7 @@
                 v-show="chat && displayChat"
                 @close="closeChat"
                 :receiver-id="receiverId"
+                :is-trader="isTrader"
             />
 
             <chat-lists
@@ -363,7 +364,7 @@
                     :to="{name:'add-to-cart'}"
                     v-else
                 >
-                    Add Cart
+                    Add Request
                 </v-btn>
 
                 <v-btn
@@ -461,7 +462,7 @@ export default {
             presentation:null,
             presentations:['Smoked','Sun Dried','Para Boiled','Fresh'],
             unit:null,
-            units:['5L Bucket','Kg','Mulu','Fish'],
+            units:['5L Bucket','Kg','Mulu','Fish','Dozen'],
         }
     },
 
@@ -480,6 +481,9 @@ export default {
     computed: {
         user(){
             return this.$store.getters.user
+        },
+        isTrader(){
+            return this.user.type==="Trader"
         },
         filteredProducts(){
             let products=Object.values(this.products);
@@ -507,6 +511,10 @@ export default {
                     return product.unit === this.unit
                 })
             }
+
+            products = (products).filter((product) => {
+                return product.status === "Available"
+            })
 
             return products
 
@@ -558,6 +566,11 @@ export default {
                     return request.unit === this.unit
                 })
             }
+
+            //get available
+            requests = (requests).filter((request) => {
+                return request.status === "Available"
+            })
 
             return requests
 
