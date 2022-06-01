@@ -16,21 +16,21 @@
             <div class=" text-center">
                 {{request.buyerName}}
             </div>
-            <div class="pa-1 font-weight bold text-center">
+            <div class="pa-1 font-weight-bold text-center">
                 <v-chip
                     class="blue lighten-4" style="color: #1565C0; "
                 >
                     K{{request.price}}/{{request.unit}}
                 </v-chip>
             </div>
-            <div class="pa-1 font-weight bold text-center">
+            <div class="pa-1 font-weight-bold text-center">
                 <v-chip
                     class="blue lighten-4 ml-2" style="color: #1565C0; "
                 >
                     {{request.amount}} {{request.unit}}
                 </v-chip>
             </div>
-            <div class="pa-1 font-weight bold text-center">
+            <div class="pa-1 font-weight-bold text-center">
                 <v-chip
                     class="blue lighten-4 ml-2" style="color: #1565C0; "
                 >

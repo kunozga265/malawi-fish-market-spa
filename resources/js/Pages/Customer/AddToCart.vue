@@ -438,7 +438,7 @@ export default {
             ],
             units:['5L Bucket','Kg','Mulu','Fish'],
             presentations:['Smoked','Sun Dried','Para Boiled','Fresh'],
-            statuses:['Available','Finished'],
+            statuses:['Available','Fulfilled'],
             shareWithOptions:['Everyone','Admins Only'],
             alsoShareToOptions:['Whatsapp','Text Message','Market Only'],
 
@@ -554,8 +554,6 @@ export default {
                 uid:this.user.data.uid,
                 unit:this.unit,
             }
-
-            console.log(customer)
 
             set(customerRef, customer);
 
