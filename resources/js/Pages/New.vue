@@ -498,7 +498,7 @@ export default {
                 'Thyolo',
                 'Zomba',
             ],
-            units:['5L Bucket','Kg','Mulu','Fish'],
+            units:['5L Bucket','Kg','Mulu','Fish','Dozen'],
             presentations:['Smoked','Sun Dried','Para Boiled','Fresh'],
             statuses:['Available','Finished'],
             shareWithOptions:['Everyone','Admins Only'],
@@ -520,8 +520,8 @@ export default {
 
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             menu: false,
-            marker: { position: { lat: 10, lng: 10 } },
-            center: { lat: 10, lng: 10 },
+            marker: { position: { lat: -13.9931667, lng: 33.7785115 } },
+            center: { lat: -13.9931667, lng: 33.7785115 },
 
             mapOptions: {
                 disableDefaultUI: true,
