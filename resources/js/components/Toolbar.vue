@@ -36,7 +36,7 @@
                 Market
             </v-btn>
             <v-btn text :to="{name:'catalog'}">
-                Catalog
+                {{ isTrader?'Catalog':'Requests' }}
             </v-btn>
             <v-btn text :to="{name:'profile'}">
                 Profile
@@ -83,6 +83,14 @@ export default {
     data() {
         return {
             about:false
+        }
+    },
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+        isTrader() {
+            return this.user.type === "Trader"
         }
     }
 }
