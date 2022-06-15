@@ -98,6 +98,8 @@ export default {
                 buyerName:this.request.buyerName,
                 uid:this.request.uid,
                 unit:this.request.unit,
+                dateTimestamp:this.request.dateTimestamp,
+                negativeDateTimestamp:this.request.negativeDateTimestamp
             }
 
             updates['/Requests/' + this.id] = request

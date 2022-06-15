@@ -28,7 +28,15 @@
                         :request="request"
                     />
 
+
+
                 </v-row>
+                <div
+                    v-if="requests.length===0 && catalogs.length===0"
+                    class="text-center "
+                >
+                    No Results Found.
+                </div>
             </v-card>
         </v-layout>
     </div>
@@ -65,12 +73,12 @@ export default {
         if(this.isTrader){
             const catalogRef = ref(database, 'Traders/' + this.user.data.uid + '/Catalog');
             onValue(catalogRef, (snapshot) => {
-                this.catalogs=snapshot.val()
+                this.catalogs=snapshot.val()?snapshot.val():[]
             });
         }else{
             const catalogRef = ref(database, 'Customers/' + this.user.data.uid + '/Requests');
             onValue(catalogRef, (snapshot) => {
-                this.requests=snapshot.val()
+                this.requests=snapshot.val()?snapshot.val():[]
             });
         }
 

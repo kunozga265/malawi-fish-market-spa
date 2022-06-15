@@ -605,6 +605,8 @@ export default {
                 traderName:this.traderName,
                 uid:this.user.data.uid,
                 unit:this.unit,
+                dateTimestamp:timestamp,
+                negativeDateTimestamp:timestamp*-1
             }
 
             // console.log(product)

@@ -105,6 +105,8 @@ export default {
                 traderName:this.catalog.traderName,
                 uid:this.catalog.uid,
                 unit:this.catalog.unit,
+                dateTimestamp:this.catalog.dateTimestamp,
+                negativeDateTimestamp:this.catalog.negativeDateTimestamp
             }
 
             updates['/Products/' + this.id] = product
