@@ -56,11 +56,29 @@ Vue.prototype.$database = database
     store.dispatch("fetchUser", user);
 });*/
 
+const router=new VueRouter(routes)
+// Navigation Guard
+//authentication
+router.beforeEach((to,from,next)=> {
+    if (to.matched.some(record => record.meta.guest)) {
+        if (store.getters.loggedIn)
+            next('/dashboard');
+        else
+            next()
+
+    } else if (to.matched.some(record => record.meta.auth)) {
+        if (store.getters.loggedIn)
+            next()
+        else
+            next('/');
+    }
+})
+
 
 const app = new Vue({
     el: '#app',
     // components: { App },
-    router: new VueRouter(routes),
+    router,
     vuetify,
     store,
 })

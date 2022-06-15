@@ -3,12 +3,12 @@ import AppLayout from "@/Layouts/AppLayout";
 
 // Pages
 import Home from '@/Pages/Home.vue'
-import Login from "@/Pages/Login"
+import TraderLogin from "@/Pages/TraderLogin";
 import Welcome from "@/Pages/Welcome";
 import Profile from "@/Pages/Profile";
 import Catalog from "@/Pages/Catalog";
 import New from '@/Pages/New'
-import LoginCustomer from "@/Pages/Customer/LoginCustomer";
+import CustomerLogin from "@/Pages/CustomerLogin";
 import HomeCustomer from "@/Pages/Customer/HomeCustomer";
 import AddToCart from "@/Pages/Customer/AddToCart";
 import AppLayoutCustomer from "@/Layouts/AppLayoutCustomer";
@@ -22,10 +22,6 @@ export default {
         {
             path: '/',
             component: AppLayout,
-            meta: {
-                auth: true,
-                admin: true
-            },
 
             children: [
                 {
@@ -35,25 +31,22 @@ export default {
                     component: Welcome,
                     meta:{
                         guest:true,
-                        admin:true
                     },
                 },
                 {
                     path: '/i-want-to-sell',
                     name: 'i-want-to-sell',
-                    component: Login,
+                    component: TraderLogin,
                     meta:{
                         guest:true,
-                        admin:true
                     },
                 },
                 {
                     path: '/i-want-to-buy',
                     name: 'i-want-to-buy',
-                    component: LoginCustomer,
+                    component: CustomerLogin,
                     meta:{
                         guest:true,
-                        admin:true
                     },
                 },
                 {
@@ -61,36 +54,51 @@ export default {
                     name: 'personal-information',
                     component: PersonalInformation,
                     meta:{
-                        guest:true,
-                        admin:true
+                        auth:true,
                     },
+                    props:true
                 },
                 {
                     path: '/dashboard',
                     name: 'dashboard',
                     component: Home,
+                    meta:{
+                        auth:true,
+                    },
                 },
                 {
                     path: '/profile',
                     name: 'profile',
                     component: Profile,
+                    meta:{
+                        auth:true,
+                    },
                     props:true
                 },
                 {
                     path: '/catalog',
                     name: 'catalog',
                     component: Catalog,
+                    meta:{
+                        auth:true,
+                    },
                     props:true
                 },
                 {
                     path: '/add-fish',
                     name: 'add-fish',
+                    meta:{
+                        auth:true,
+                    },
                     component: New,
                 },
                 {
                     path: '/add-to-cart',
                     name: 'add-to-cart',
                     component: AddToCart,
+                    meta:{
+                        auth:true,
+                    },
                 },
             ]}
 
