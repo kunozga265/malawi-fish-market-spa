@@ -13,6 +13,8 @@ const vuexLocalStorage=new VuexPersist({
     // reducer:state=>state,
     reducer:state=>({
         user:state.user,
+        products:state.products,
+        requests:state.requests,
     }),
     //Function that passes a mutation and lets you decide if it should update the state in localStorage
     filter:   mutation=> (true)
@@ -26,11 +28,22 @@ export default new Vuex.Store({
             info:null,
             type:null,
         },
+        products:[],
+        requests:[],
     },
     getters: {
+        loggedIn(state){
+            return state.user.loggedIn
+        },
         user(state){
             return state.user
-        }
+        },
+        products(state){
+            return state.products
+        },
+        requests(state){
+            return state.requests
+        },
     },
     mutations: {
         SET_LOGGED_IN(state, value) {
@@ -52,7 +65,13 @@ export default new Vuex.Store({
                 info:null,
                 type:null
             };
-        }
+        },
+        SET_PRODUCTS(state, data) {
+            state.products = data;
+        },
+        SET_REQUESTS(state, data) {
+            state.requests = data;
+        },
     },
     actions: {
         fetchUser({ commit }, user) {
@@ -74,6 +93,16 @@ export default new Vuex.Store({
         setUserType({ commit }, type) {
             if (type) {
                 commit("SET_USER_TYPE", type);
+            }
+        },
+        setProducts({ commit }, data) {
+            if (data) {
+                commit("SET_PRODUCTS", data);
+            }
+        },
+        setRequests({ commit }, data) {
+            if (data) {
+                commit("SET_REQUESTS", data);
             }
         },
         logout({ commit }) {

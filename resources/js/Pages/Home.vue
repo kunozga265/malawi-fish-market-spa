@@ -44,9 +44,9 @@
                 <v-btn icon text :to="{name:'profile'}">
                     <v-icon>mdi-account</v-icon>
                 </v-btn>
-                <v-btn icon text @click="about=true">
+<!--                <v-btn icon text @click="about=true">
                     <v-icon>mdi-comment-question</v-icon>
-                </v-btn>
+                </v-btn>-->
             </v-toolbar-items>
 
             <!--            Bigger Screens-->
@@ -60,9 +60,9 @@
                 <v-btn text :to="{name:'profile'}">
                     Profile
                 </v-btn>
-                <v-btn text @click="about=true">
+<!--                <v-btn text @click="about=true">
                     About
-                </v-btn>
+                </v-btn>-->
             </v-toolbar-items>
             <template v-slot:extension>
                 <v-tabs
@@ -318,7 +318,7 @@
                                 v-for="(request,index) in filteredRequests"
                                 :key="index"
                                 :request="request"
-                                @chat="chatWithTrader"
+                                @chat="chatWithCustomer"
                             />
                         </v-row>
                         <div
@@ -340,7 +340,7 @@
                 v-show="chat && displayChat"
                 @close="closeChat"
                 :receiver-id="receiverId"
-                :is-trader="isTrader"
+                :is-customer="isCustomer"
             />
 
             <chat-lists
@@ -410,8 +410,8 @@ export default {
 
     data() {
         return {
-            products: [],
-            requests: [],
+          /*  products: [],
+            requests: [],*/
             value:1,
             chat:false,
             displayChat:false,
@@ -463,24 +463,32 @@ export default {
             presentations:['Smoked','Sun Dried','Para Boiled','Fresh'],
             unit:null,
             units:['5L Bucket','Kg','Mulu','Fish','Dozen'],
+            isCustomer:false
+
         }
     },
 
     created() {
         const productsRef = ref(database, 'Products');
         onValue(productsRef, (snapshot) => {
-            this.products=snapshot.val()
+            this.$store.dispatch("setProducts",snapshot.val())
         });
 
         const requestsRef = ref(database, 'Requests');
         onValue(requestsRef, (snapshot) => {
-            this.requests=snapshot.val()
+            this.$store.dispatch("setRequests",snapshot.val())
         });
     },
 
     computed: {
         user(){
             return this.$store.getters.user
+        },
+        products(){
+            return this.$store.getters.products
+        },
+        requests(){
+            return this.$store.getters.requests
         },
         isTrader(){
             return this.user.type==="Trader"
@@ -603,6 +611,13 @@ export default {
             this.receiverId=receiverId
             this.chat=true
             this.displayChat=true
+            this.isCustomer=false
+        },
+        chatWithCustomer(receiverId){
+            this.receiverId=receiverId
+            this.chat=true
+            this.displayChat=true
+            this.isCustomer=true
         },
         viewChat(receiverId){
             this.receiverId=receiverId
