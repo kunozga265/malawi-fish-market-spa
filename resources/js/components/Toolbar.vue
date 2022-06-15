@@ -25,9 +25,9 @@
             <v-btn icon text :to="{name:'profile'}">
                 <v-icon>mdi-account</v-icon>
             </v-btn>
-            <v-btn icon text @click="about=true">
+<!--            <v-btn icon text @click="about=true">
                 <v-icon>mdi-comment-question</v-icon>
-            </v-btn>
+            </v-btn>-->
         </v-toolbar-items>
 
         <!--            Bigger Screens-->
@@ -41,9 +41,9 @@
             <v-btn text :to="{name:'profile'}">
                 Profile
             </v-btn>
-            <v-btn text @click="about=true">
+<!--            <v-btn text @click="about=true">
                 About
-            </v-btn>
+            </v-btn>-->
         </v-toolbar-items>
         <v-dialog
             v-model="about"
