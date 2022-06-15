@@ -66,13 +66,13 @@ a{
                     <div>
                         <router-link :to="{name:'i-want-to-buy'}">
                             <div class="f-button blue darken-3 my-5">
-                                I want To Buy
+                                I Want To Buy
                             </div>
                         </router-link >
 
                         <router-link :to="{name:'i-want-to-sell'}">
                             <div class="f-button blue darken-3 my-5">
-                                I want To Sell
+                                I Want To Sell
                             </div>
                         </router-link >
                     </div>

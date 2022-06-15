@@ -70,12 +70,13 @@ import {database} from "@/app";
 
 export default {
     name: "Login",
+    props:['type','phoneNumber'],
 
     data() {
         return {
             form: {
                 name: "",
-                number1: "",
+                number1: this.phoneNumber,
                 number2: ""
             },
             error: null,
@@ -89,7 +90,13 @@ export default {
     },
     methods: {
         submit() {
-           const infoRef=ref(database,"Customers/"+this.user.data.uid+"/personalInformation")
+            let infoRef=""
+
+            if(this.type==="customer")
+                infoRef=ref(database,"Customers/"+this.user.data.uid+"/personalInformation")
+            else
+                infoRef=ref(database,"Traders/"+this.user.data.uid+"/personalInformation")
+
             set(infoRef,{
                 name: this.form.name,
                 number1: this.form.number1,
