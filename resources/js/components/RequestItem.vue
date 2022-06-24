@@ -98,6 +98,7 @@ export default {
                 buyerName:this.request.buyerName,
                 uid:this.request.uid,
                 unit:this.request.unit,
+                gender:this.request.gender,
                 dateTimestamp:this.request.dateTimestamp,
                 negativeDateTimestamp:this.request.negativeDateTimestamp
             }
