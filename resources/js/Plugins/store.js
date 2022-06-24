@@ -67,10 +67,22 @@ export default new Vuex.Store({
             };
         },
         SET_PRODUCTS(state, data) {
-            state.products = data;
+            const arr = Object.values(data);
+            arr.sort((function(index){
+                return function(a, b){
+                    return (a[index] === b[index] ? 0 : (a[index] < b[index] ? -1 : 1));
+                };
+            })('negativeDateTimestamp'));
+            state.products = arr;
         },
         SET_REQUESTS(state, data) {
-            state.requests = data;
+            const arr = Object.values(data);
+            arr.sort((function(index){
+                return function(a, b){
+                    return (a[index] === b[index] ? 0 : (a[index] < b[index] ? -1 : 1));
+                };
+            })('negativeDateTimestamp'));
+            state.requests = arr;
         },
     },
     actions: {
