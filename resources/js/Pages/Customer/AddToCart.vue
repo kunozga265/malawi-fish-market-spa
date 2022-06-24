@@ -165,6 +165,15 @@
                                                     :rules="[rules.required]"
                                                 />
                                             </v-col>
+                                            <v-col cols="12" sm="6">
+                                                <v-select
+                                                    v-model="gender"
+                                                    :items="genders"
+                                                    filled
+                                                    label="Gender"
+                                                    :rules="[rules.required]"
+                                                />
+                                            </v-col>
                                         </v-row>
 
 
@@ -352,6 +361,10 @@
                                                 <div class="blue--text darken-3 title">Preferred Payment Method</div>
                                                 <div>{{getPreferredPaymentMethod}}</div>
                                             </v-col>
+                                            <v-col cols="12" sm="6">
+                                                <div class="blue--text darken-3 title">Gender</div>
+                                                <div>{{gender}}</div>
+                                            </v-col>
                                         </v-row>
 
                                     </v-card>
@@ -436,7 +449,7 @@ export default {
                 'Thyolo',
                 'Zomba',
             ],
-            units:['5L Bucket','Kg','Mulu','Fish'],
+            units:['5L Bucket','Kg','Mulu','Fish','Dozen'],
             presentations:['Smoked','Sun Dried','Para Boiled','Fresh'],
             statuses:['Available','Fulfilled'],
             shareWithOptions:['Everyone','Admins Only'],
@@ -457,6 +470,8 @@ export default {
             preferredPaymentMethod:0,
             shareWith:null,
             alsoShareOption:null,
+            gender:"",
+            genders:["Male","Female","Other"],
 
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             menu: false,
@@ -520,6 +535,8 @@ export default {
                 return false
             else if(this.statusSelected.length === 0 || this.statusSelected === "")
                 return false
+            else if(this.gender.length === 0 || this.gender === "")
+                return false
             else
                 return true
         }
@@ -553,6 +570,7 @@ export default {
                 buyerName:this.buyerName,
                 uid:this.user.data.uid,
                 unit:this.unit,
+                gender:this.gender,
                 dateTimestamp:timestamp,
                 negativeDateTimestamp:timestamp*-1
             }
