@@ -9,7 +9,19 @@
     position: fixed;
     bottom: 0;
     right: 0;
-
+}
+.v-tab--active {
+    background-color: rgb(62 128 203);
+}
+.filters{
+    position: fixed;
+    padding-top: 112px;
+    z-index: 10;
+    background-color: white;
+    width: 100%;
+}
+.tabs-items{
+    padding-top: 210px;
 }
 </style>
 
@@ -19,6 +31,7 @@
             dark
             color="blue darken-3"
             fixed
+            style="z-index:11"
         >
 <!--            <v-app-bar-nav-icon  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
 <!--            <v-app-bar-nav-icon></v-app-bar-nav-icon>-->
@@ -27,6 +40,15 @@
             <div class="app-logo">
                 <v-avatar>
                     <img src="/images/logos/fish_app_logo.png" alt="">
+                </v-avatar>
+                <v-avatar>
+                    <img src="/images/logos/luanar_logo.png" alt="">
+                </v-avatar>
+                <v-avatar>
+                    <img src="/images/logos/african_alliance_logo.png" alt="">
+                </v-avatar>
+                <v-avatar>
+                    <img src="/images/logos/michigan_logo.png" alt="">
                 </v-avatar>
 
             </div>
@@ -187,23 +209,23 @@
             </div>
         </v-navigation-drawer>
 
-        <v-layout >
+        <div class="filters">
             <v-container>
-<!--                <v-select
-                    v-model="filter"
-                    :items="filters"
-                    filled
-                    rounded
-                    dense
-                    placeholder="Select a filter"
-                    label="Filter By"
-                    class="mt-2"
-                />-->
+                <!--                <v-select
+                                    v-model="filter"
+                                    :items="filters"
+                                    filled
+                                    rounded
+                                    dense
+                                    placeholder="Select a filter"
+                                    label="Filter By"
+                                    class="mt-2"
+                                />-->
                 <v-row class="pt-5">
                     <v-col
                         style="padding:0 12px"
-                        cols="12"
-                        sm="6"
+                        cols="6"
+                        sm="3"
                     >
                         <v-select
                             v-model="speciesSelected"
@@ -217,9 +239,9 @@
                         />
                     </v-col>
                     <v-col
-                         style="padding:0 12px"
-                        cols="12"
-                        sm="6"
+                        style="padding:0 12px"
+                        cols="6"
+                        sm="3"
                     >
                         <v-select
                             v-model="district"
@@ -234,8 +256,8 @@
                     </v-col>
                     <v-col
                         style="padding:0 12px"
-                        cols="12"
-                        sm="6"
+                        cols="6"
+                        sm="3"
                     >
                         <v-select
                             v-model="presentation"
@@ -249,9 +271,9 @@
                         />
                     </v-col>
                     <v-col
-                         style="padding:0 12px"
-                        cols="12"
-                        sm="6"
+                        style="padding:0 12px"
+                        cols="6"
+                        sm="3"
                     >
                         <v-select
                             v-model="unit"
@@ -271,8 +293,8 @@
 
 
             </v-container>
-        </v-layout>
-        <div>
+        </div>
+        <div class="tabs-items">
             <v-tabs-items v-model="tab" style="width: 100%">
                 <v-tab-item>
                     <v-card
@@ -286,7 +308,7 @@
                             v-if="filteredProducts.length > 0"
                         >
                             <product
-                                v-for="(product,index) in filteredProducts"
+                                v-for="(product,index) in paginatedProducts"
                                 :key="index"
                                 :product="product"
                                 @chat="chatWithTrader"
@@ -315,7 +337,7 @@
                         >
                             <request
 
-                                v-for="(request,index) in filteredRequests"
+                                v-for="(request,index) in paginatedRequests"
                                 :key="index"
                                 :request="request"
                                 @chat="chatWithCustomer"
@@ -392,10 +414,11 @@ import Product from "@/components/Product";
 
 // import {db} from '@/Plugins/db'
 import {database} from "@/app";
-import {onValue, ref} from "firebase/database";
+import {onValue, ref, query, orderByChild, orderByValue, orderByKey,limitToFirst} from "firebase/database";
 import Chat from '@/components/Chat'
 import ChatLists from "@/components/ChatLists";
 import Request from "@/components/Request";
+import product from "@/components/Product";
 
 export default {
     name: "Home",
@@ -463,8 +486,9 @@ export default {
             presentations:['Smoked','Sun Dried','Para Boiled','Fresh'],
             unit:null,
             units:['5L Bucket','Kg','Mulu','Fish','Dozen'],
-            isCustomer:false
-
+            isCustomer:false,
+            productsIndexLimit:20,
+            requestsIndexLimit:20,
         }
     },
 
@@ -474,19 +498,34 @@ export default {
             this.$store.dispatch("setProducts",snapshot.val())
         });
 
-        const requestsRef = ref(database, 'Requests');
+        const requestsRef = query(ref(database, 'Requests'),orderByChild('negativeDateTimestamp'));
         onValue(requestsRef, (snapshot) => {
             this.$store.dispatch("setRequests",snapshot.val())
         });
     },
+    mounted(){
+      this.onScroll()
+    },
 
     computed: {
+        scroll(){
+           /* if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight)
+                return true
+            else
+                return false*/
+            return{
+                height:window.innerHeight,
+                scrollY:window.scrollY,
+                heightNScroll:window.innerHeight + window.scrollY,
+                documentHeight:document.body.scrollHeight
+            }
+        },
         user(){
             return this.$store.getters.user
         },
-        products(){
+      /*  products(){
             return this.$store.getters.products
-        },
+        },*/
         requests(){
             return this.$store.getters.requests
         },
@@ -494,7 +533,9 @@ export default {
             return this.user.type==="Trader"
         },
         filteredProducts(){
-            let products=Object.values(this.products);
+            // let products=Object.values(this.products);
+            let products=this.$store.getters.products;
+
 
             if(this.speciesSelected!=null){
                 products = (products).filter((product) => {
@@ -520,9 +561,9 @@ export default {
                 })
             }
 
-            products = (products).filter((product) => {
+          /*  products = (products).filter((product) => {
                 return product.status === "Available"
-            })
+            })*/
 
             return products
 
@@ -546,10 +587,20 @@ export default {
                 default:
                     return products
             }*/
-
+        },
+        filteredProductsIndexLimit(){
+            return (this.filteredProducts).length - 1
+        },
+        paginatedProducts(){
+            let products=[]
+            for(let x in this.filteredProducts){
+                if (x <= this.productsIndexLimit)
+                    products.push(this.filteredProducts[x])
+            }
+            return products
         },
         filteredRequests(){
-            let requests=Object.values(this.requests);
+            let requests=this.requests;
 
             if(this.speciesSelected!=null){
                 requests = (requests).filter((request) => {
@@ -576,34 +627,34 @@ export default {
             }
 
             //get available
-            requests = (requests).filter((request) => {
+          /*  requests = (requests).filter((request) => {
                 return request.status === "Available"
-            })
+            })*/
+
+
 
             return requests
 
-           /* switch (this.filter){
-                case 'Species':
-                    return (requests).filter((request) => {
-                        return request.species.toLowerCase().includes(this.speciesSelected.toLowerCase())
-                    })
-                case 'Location':
-                    return (requests).filter((request) => {
-                        return request.district.toLowerCase().includes(this.district.toLowerCase())
-                    })
-                case 'Presentation':
-                    return (requests).filter((request) => {
-                        return request.presentation === this.presentation
-                    })
-                case 'Units':
-                    return (requests).filter((request) => {
-                        return request.unit === this.unit
-                    })
-                default:
-                    return requests
-            }*/
-
         },
+        filteredRequestsIndexLimit(){
+            return (this.filteredRequests).length - 1
+        },
+        paginatedRequests(){
+            let requests=[]
+            for(let x in this.filteredRequests){
+                if (x <= this.requestsIndexLimit)
+                    requests.push(this.filteredRequests[x])
+            }
+            return requests
+        },
+    },
+    watch:{
+        filteredProducts(){
+            this.productsIndexLimit=20
+        },
+        filteredRequests(){
+            this.requestsIndexLimit=20
+        }
     },
 
     methods:{
@@ -626,7 +677,24 @@ export default {
         closeChat(){
 
             this.displayChat=false
-        }
+        },
+        onScroll () {
+            window.onscroll = () => {
+                let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
+
+                if (bottomOfWindow) {
+                    this.productsIndexLimit+=20
+                    this.requestsIndexLimit+=20
+
+                    if(this.productsIndexLimit > this.filteredProductsIndexLimit)
+                        this.productsIndexLimit=this.filteredProductsIndexLimit
+
+                    if(this.requestsIndexLimit > this.filteredRequestsIndexLimit)
+                        this.requestsIndexLimit=this.filteredRequestsIndexLimit
+
+                }
+            }
+        },
     }
 
 }
