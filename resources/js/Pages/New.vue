@@ -468,7 +468,7 @@ export default {
             },
             el:1,
             speciesSelected:'',
-            species:['Batala','Bombe','Chambo','Kampango','Kapenta','Matemba','Mcheni','Mlamba','Ndunduma','Usipa','Utaka'],
+            species:['Batala','Bombe','Chambo','Kampango','Kapenta','Matemba','Mcheni','Mlamba','Mpasa','Ndunduma','Sanjika','Usipa','Utaka'],
             districts:[
                 'Balaka',
                 'Blantyre',
