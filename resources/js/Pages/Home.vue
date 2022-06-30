@@ -20,9 +20,18 @@
     background-color: white;
     width: 100%;
 }
+
 .tabs-items{
-    padding-top: 210px;
+    padding-top: 285px;
 }
+
+@media only screen and (min-width:600px) {
+    .tabs-items{
+        padding-top: 210px;
+    }
+}
+
+
 </style>
 
 <template>

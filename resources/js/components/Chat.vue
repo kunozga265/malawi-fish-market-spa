@@ -6,7 +6,7 @@
     bottom: 120px;
     width: auto;
     height: 600px;
-    z-index: 5;
+    z-index: 12;
 
     .chat-header {
         position: absolute;
