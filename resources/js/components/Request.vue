@@ -69,6 +69,7 @@
 
                     <v-row>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -89,6 +90,7 @@
                             </v-list-item>
                         </v-col>-->
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -99,6 +101,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -109,6 +112,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -119,6 +123,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -129,6 +134,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -139,6 +145,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -149,6 +156,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -159,6 +167,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -169,6 +178,7 @@
                             </v-list-item>
                         </v-col>
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -186,6 +196,7 @@
                     <v-row>
 
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -197,6 +208,7 @@
                         </v-col>
 
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>
@@ -208,6 +220,7 @@
                         </v-col>
 
                         <v-col
+                            cols="12"
                             sm="6"
                         >
                             <v-list-item two-line>

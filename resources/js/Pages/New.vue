@@ -162,12 +162,18 @@
                                     </v-btn>
 
                                     <v-btn
+                                        v-if="!loading"
                                         color="primary"
                                         @click="el = 4"
                                         :disabled="imageFiles.length === 0 "
                                     >
                                         Next
                                     </v-btn>
+                                    <v-progress-circular
+                                        color="primary"
+                                        v-else
+                                        indeterminate
+                                    />
                                 </v-stepper-content>
 
                                 <v-stepper-content step="4">
@@ -528,6 +534,7 @@ export default {
             },
             imageFiles:[],
             info: [],
+            loading: false,
         }
     },
 
@@ -661,6 +668,7 @@ export default {
             }
         },
         photoUpload(file){
+            this.loading=true
             const reader=new FileReader();
             if (file){
                 reader.readAsDataURL(file);
@@ -674,6 +682,7 @@ export default {
                     uploadString(fileRef, e.target.result, 'data_url').then((snapshot) => {
                         getDownloadURL(fileRef).then((url)=>{
                             this.imageFiles.push(url)
+                            this.loading=false
                         })
                     });
                 };
