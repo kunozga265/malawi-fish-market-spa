@@ -26,7 +26,7 @@ export default {
             children: [
                 {
 
-                    path: '/',
+                    path: '/welcome',
                     name: 'welcome',
                     component: Welcome,
                     meta:{
@@ -59,12 +59,9 @@ export default {
                     props:true
                 },
                 {
-                    path: '/dashboard',
+                    path: '/',
                     name: 'dashboard',
                     component: Home,
-                    meta:{
-                        auth:true,
-                    },
                 },
                 {
                     path: '/profile',
