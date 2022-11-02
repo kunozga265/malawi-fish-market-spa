@@ -237,7 +237,9 @@
 
                 <v-divider></v-divider>
 
-                <v-card-actions>
+                <v-card-actions
+                    v-if="user.loggedIn"
+                >
                     <v-btn
                         color="primary"
                         text
@@ -246,6 +248,18 @@
                     >
                         Chat
                     </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="dialog = false"
+                    >
+                        cLOSE
+                    </v-btn>
+                </v-card-actions>
+                <v-card-actions
+                   v-else
+                >
                     <v-spacer></v-spacer>
                     <v-btn
                         color="primary"

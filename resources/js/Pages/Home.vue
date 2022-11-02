@@ -368,6 +368,7 @@
 
 
             <chat
+                v-if="user.loggedIn"
                 v-show="chat && displayChat"
                 @close="closeChat"
                 :receiver-id="receiverId"
@@ -375,6 +376,7 @@
             />
 
             <chat-lists
+                v-if="user.loggedIn"
                 v-show="chat && !displayChat"
                 @view="viewChat"
             />
@@ -399,6 +401,7 @@
                 </v-btn>
 
                 <v-btn
+                    v-if="user.loggedIn"
                     class="mx-2"
                     fab
                     dark
